@@ -1,0 +1,39 @@
+{
+  "name": "nn-math-web",
+  "version": "1.0.0",
+  "description": "nn-math-web",
+  "scripts": {
+    "server": "node local-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guseyn/nn-math-web.git"
+  },
+  "keywords": [
+    "nn",
+    "machine",
+    "learning",
+    "async",
+    "tree"
+  ],
+  "author": "guseyn",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/Guseyn/nn-math-web/issues"
+  },
+  "homepage": "https://github.com/Guseyn/nn-math-web",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@cuties/async": "^1.0.1",
+    "@cuties/buffer": "^1.2.3",
+    "@cuties/cutie": "^1.7.5",
+    "@cuties/fs": "^1.2.4",
+    "@cuties/https": "^1.1.4",
+    "@cuties/json": "^1.1.1",
+    "@cuties/rest": "^1.2.16"
+  }
+}
