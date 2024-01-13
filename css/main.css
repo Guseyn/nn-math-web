@@ -184,7 +184,7 @@ iframe {
   border: 0;
 }
 
-.base {
+div.base {
   width: 100%;
   height: auto;
   clear: both;
@@ -230,6 +230,7 @@ iframe {
 }
 
 .middle {
+  font-family: 'PT Serif', serif;
   padding: 10px;
 }
 
@@ -302,7 +303,7 @@ img:not(.logo):not(.photo):not(.project-logo):not(.article-logo):not(.youtube-vi
 }
 
 @media only screen and (min-width: 700px) {
-  .base {
+  div.base {
     width: 780px;
     font-size: 1.2em;
   }
