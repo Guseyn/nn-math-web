@@ -396,6 +396,19 @@ A = [a_1, a_2, \ldots, a_n]^T, B = [b_1, b_2, \ldots, b_n]^T
 P = \mathbf{A}^T \mathbf{B} = \sum_{i=1}^{n} a_ib_i
 ```
 
+### 1.7. Product Rule For Scalar Functions
+
+```latex
+(u \odot v)' = u' \odot v + u \odot v'
+```
+
+### 1.8. Product Rule For Gradients
+
+```latex
+\nabla (f \odot g) = \nabla f \odot g + f \odot \nabla g,
+```
+where $$f$$ and $$g$$ produce scalars or vectors.
+
 ## 2. Forward Propagation
 ### 2.1. The Neuron Function
 
@@ -479,9 +492,146 @@ Then the cost can be calculated as:
 }
 ```
 
+### 3.2. Differentiating a Neuron's Operations
+#### 3.2.1. Derivative of a Binary Elementwise Function
 
+Binary Elementwise Function or Hadamard Product is a function $$f(\vec v, \vec w) \rightarrow \vec b$$, which takes two vectors on input and produces a vector on output.
 
+Let's assume that the product $$f$$ can be expressed as
 
+```latex
+f(\vec v, \vec w) = f_1(\vec v) \odot f_2(\vec w)
+```
 
+For the most part, $$f_1(\vec v) = \vec v$$ and $$f_2(\vec w) = \vec w$$, but let's take more geral approach and assume that those functions can take other forms as well. Also, it's worth noting that $$f_1$$ and $$f_2$$ generally are not elementwise functions. Each of them produces a vector, but each element of that vector can be calculated using other elements of the input vector  $$\vec v$$ or $$\vec w$$ respectively. It means that $$f_1$$ and $$f_2$$ can be expressed as vectors of functions $$f_1 = [f_{11}, f_{12}, ..., f_{1n}]^T$$ and $$f_2 = [f_{21}, f_{22}, ..., f_{2n}]^T$$.
 
+Let's find a derivative of such function or Jacobian. We will start with gradients, so that we can use them to calculate our Jacobian.
 
+```latex
+f_{j}(\vec v, \vec w) = f_{1j}(\vec v) \odot f_{2j}(\vec w), 
+```
+where $$1 \le j \le n$$. Using the product rule, we can conclude:
+```latex
+\nabla f_{j}(\vec v, \vec w) = \nabla (f_{1j}(\vec v) \odot f_{2j}(\vec w)) =
+```
+```latex
+\displaystyle{
+	=
+	\nabla f_{1j}(\vec v) \odot f_{2j}(\vec w) + f_{1j}(\vec v) \odot \nabla f_{2j}(\vec w) =
+}
+```
+```latex
+\displaystyle{
+	\begin{bmatrix}
+		\frac{df_{1j}}{v_{1}} \odot f_{2j}(w_{1}) + f_{1j}(v_{1}) \odot \frac{df_{2j}}{dw_{1}} \\ \\
+		\frac{df_{1j}}{v_{2}} \odot f_{2j}(w_{2}) + f_{1j}(v_{2}) \odot \frac{df_{2j}}{dw_{2}} \\ \\
+		\vdots \\ \\
+		\frac{df_{1j}}{v_{n}} \odot f_{2j}(w_{n}) + f_{1j}(v_{n}) \odot \frac{df_{2j}}{dw_{n}}
+	\end{bmatrix}
+}
+```
+
+Now, let's find Jacobian:
+```latex
+J f(\vec v, \vec w) = J (f_1(\vec v) \odot f_2(\vec w)) =
+```
+```latex
+\displaystyle{
+	= J
+	\begin{bmatrix}
+		f_{11}(\vec v) \odot f_{21}(\vec w) \\ \\
+		f_{12}(\vec v) \odot f_{22}(\vec w) \\ \\
+		\vdots \\ \\
+		f_{1n}(\vec v) \odot f_{2n}(\vec w)
+	\end{bmatrix} =
+	\begin{bmatrix}
+		\nabla^T f_{11}(\vec v) \odot f_{21}(\vec w) \\ \\
+		\nabla^T f_{12}(\vec v) \odot f_{22}(\vec w) \\ \\
+		\vdots \\ \\
+		\nabla^T f_{1n}(\vec v) \odot f_{2n}(\vec w)
+	\end{bmatrix} =
+}
+```
+```latex
+\displaystyle{
+	=
+	\begin{bmatrix}
+		\frac{df_{11}}{v_{1}} \odot f_{21}(w_{1}) + f_{11}(v_{1}) \odot \frac{df_{21}}{dw_{1}} &
+		\cdots &
+		\frac{df_{11}}{v_{n}} \odot f_{21}(w_{n}) + f_{11}(v_{n}) \odot \frac{df_{21}}{dw_{n}}
+		\\ \\
+		\frac{df_{12}}{v_{1}} \odot f_{22}(w_{1}) + f_{12}(v_{1}) \odot \frac{df_{22}}{dw_{1}} &
+		\cdots &
+		\frac{df_{12}}{v_{n}} \odot f_{22}(w_{n}) + f_{12}(v_{n}) \odot \frac{df_{22}}{dw_{n}}
+		\\ \\
+		\vdots & \cdots & \vdots
+		\\ \\
+		\frac{df_{1n}}{v_{1}} \odot f_{2n}(w_{1}) + f_{1n}(v_{1}) \odot \frac{df_{2n}}{dw_{1}} &
+		\cdots &
+		\frac{df_{1n}}{v_{n}} \odot f_{2n}(w_{n}) + f_{1n}(v_{n}) \odot \frac{df_{2n}}{dw_{n}}
+	\end{bmatrix}
+}
+```
+
+#### 3.2.2. Derivative of a Hadamard Product
+
+If $$f_{1j}$$ and $$f_{2j}$$ are elementwise functions, meaning that $$f_{1j}$$ affects only $$v_j$$, and $$f_{2j}$$ affects only $$w_j$$, then our Jacobian will be a diagonal matrix:
+
+```latex
+\displaystyle{
+	\begin{bmatrix}
+		\frac{df_{11}}{v_{1}} \odot f_{21}(w_{1}) + f_{11}(v_{1}) \odot \frac{df_{21}}{dw_{1}} &
+		\cdots &
+		0
+		\\ \\
+		0 &
+		\cdots &
+		0
+		\\ \\
+		\vdots & \cdots & \vdots
+		\\ \\
+		0 &
+		\cdots &
+		\frac{df_{1n}}{v_{n}} \odot f_{2n}(w_{n}) + f_{1n}(v_{1}) \odot \frac{df_{2n}}{dw_{n}}
+	\end{bmatrix}
+}
+
+```
+
+In general,
+
+```latex
+(J f_{1j}(\vec v) \odot f_{2j}(\vec w))_{ij} = \frac{df_{1j}}{v_{j}} \odot f_{2j}(w_{j}) + f_{1j}(v_{j}) \odot \frac{df_{2j}}{dw_{j}}, i = j
+```
+```latex
+(J f_{1j}(\vec v) \odot f_{2j}(\vec w))_{ij} = 0, i \neq j
+```
+
+If, product operation is just multiplication and $$f_{1j} = v_{j}$$ and $$f_{2j} = w_{j}$$, then $$\frac{df_{1j}(v_j)}{v_j} = \frac{d(v_j)}{v_j} = 1$$; $$\frac{df_{2j}(w_j)}{w_j} = \frac{d(w_j)}{w_j} = 1$$ and our Jacobian would be:
+```latex
+\displaystyle{
+	\begin{bmatrix}
+		w_1 + v_1 &
+		\cdots &
+		0
+		\\ \\
+		0 &
+		\cdots &
+		0
+		\\ \\
+		\vdots & \cdots & \vdots
+		\\ \\
+		0 &
+		\cdots &
+		w_n + v_n
+	\end{bmatrix}
+}
+```
+
+And again in general,
+
+```latex
+J (\vec v \vec w) = diag(w_j + v_j)
+```
+
+### 3.2.3 Derivative of a Scalar Expansion
