@@ -387,10 +387,101 @@ f_1(f_2(x)) = sin(x^2)
 </details>
 
 
+### 1.6. Dot Product of Two Vectors
+
+```latex
+A = [a_1, a_2, \ldots, a_n]^T, B = [b_1, b_2, \ldots, b_n]^T
+```
+```latex
+P = \mathbf{A}^T \mathbf{B} = \sum_{i=1}^{n} a_ib_i
+```
+
 ## 2. Forward Propagation
 ### 2.1. The Neuron Function
 
+Let's consider ReLU as activation function
+
 ```latex
-\sigma(\sum_{i=1}^{n} x_iw_i + b)
+\sigma(x) = max(0, x)
 ```
+```latex
+\sigma(\sum_{i=1}^{n} x_iw_i + b) = max(0, \sum_{i=1}^{n} x_iw_i + b) = max(0, x^Tw + b)
+```
+```latex
+z = x^Tw + b
+```
+Let's call the result or activation of the activation function as $$a$$
+```latex
+a = \sigma(x^Tw + b) = \sigma(z)
+```
+
+For each nueron, we have two vectors $$x$$(input) and $$w$$(weight), and we get $$a$$ as a scalar result of the activation for the neuron.
+
+### 2.2. Weight and Bias Indexing
+- $$w_{jk}^l$$ (as scalar)
+	- $$l$$ - current layer index, where we are calculating our activation for the neuron
+	- $$j$$ - neuron index in the layer ($$l$$), where we are calculating our activation for the neuron
+	- $$k$$ - neuron index in the previous layer ($$l-1$$), which is connected to the current neuron where we are calculating our activation
+
+- $$b^l$$ - bias (as scalar) for current layer
+- $$b^l_j$$ - bias (as scalar) for neuron with index $$j$$ current layer
+- $$b^l$$ - bias (as vector) for current layer for each corresponding neuron
+
+### 2.3. A Layer of Neurons
+
+- $$a^l$$ - actiovation vector of the layer $$l$$ that can be used as an input vector $$x^{l+1}$$ for the next later ($$l+1$$)
+- $$x^l$$ - input vector for the layer $$l$$, $$x^0$$ - the very first input vector for the whole neural network
+- $$W^l$$ - matrix of weights for the layer $$l$$, which can be represented as follows:
+
+```latex
+\displaystyle{
+	\begin{bmatrix}
+		w_{11}^l & w_{12}^l & \cdots & w_{1k}^l & \cdots & w_{1m}^l \\ \\
+		w_{21}^l & w_{22}^l & \cdots & w_{2k}^l & \cdots & w_{2m}^l \\ \\
+		\vdots & \vdots & \cdots & \vdots & \cdots & \vdots \\ \\
+		w_{j1}^l & w_{j2}^l & \cdots & w_{jk}^l & \cdots & w_{jm}^l \\ \\
+		\vdots & \vdots & \cdots & \vdots & \cdots & \vdots \\ \\
+		w_{n1}^l & w_{j2}^l & \cdots & w_{nk}^l & \cdots & w_{nm}^l
+	\end{bmatrix}
+}
+```
+
+$$n$$ - number of neurons in current layer
+$$m$$ - number of neurons in previous layer
+$$w_{jk}^l$$ - weight for the neuron with index $$j$$ in current layer $$l$$ coming from a neuron with index $$k$$ in previous layer $$l - 1$$
+
+```latex
+a^{l - 1} = x^{l}
+```
+```latex
+a^l = \sigma(a^{l - 1}W^l + b^l) = \sigma(x^{l}W^l + b^l)
+```
+```latex
+z^l = a^{l - 1}W^l + b^l = x^{l}W^l + b^l
+```
+
+Eventually, to calculate an entire layer, we do this:
+
+```latex
+a^l = \sigma(z^l)
+```
+
+## 3. Derivatives of Neural Networks and Gradient Descent
+### 3.1. Cost Function
+
+Let's say $$m$$ - number of of training examples, $$\hat{y}$$ is a total output of the neural network (is the last layer activation $$a^l$$).
+
+Then the cost can be calculated as:
+
+```latex
+\displaystyle{
+	C = \frac{1}{2m}\sum_{i = 0}^{m} (y - \hat y)^2
+}
+```
+
+
+
+
+
+
 
