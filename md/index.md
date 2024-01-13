@@ -607,7 +607,7 @@ In general,
 (J f_{1j}(\vec v) \odot f_{2j}(\vec w))_{ij} = 0, i \neq j
 ```
 
-If, product operation is just multiplication and $$f_{1j} = v_{j}$$ and $$f_{2j} = w_{j}$$, then $$\frac{df_{1j}(v_j)}{v_j} = \frac{d(v_j)}{v_j} = 1$$; $$\frac{df_{2j}(w_j)}{w_j} = \frac{d(w_j)}{w_j} = 1$$ and our Jacobian would be:
+If the product operation is just multiplication and $$f_{1j} = v_{j}$$ and $$f_{2j} = w_{j}$$, then $$\frac{df_{1j}(v_j)}{v_j} = \frac{d(v_j)}{v_j} = 1$$; $$\frac{df_{2j}(w_j)}{w_j} = \frac{d(w_j)}{w_j} = 1$$ and our Jacobian would be:
 ```latex
 \displaystyle{
 	\begin{bmatrix}
