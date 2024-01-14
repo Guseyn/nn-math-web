@@ -777,7 +777,7 @@ If $$f_i(v_i) = v_i$$, then
 d S = \vec 1
 ```
 
-### 3.3 Derivative of a Neuron's Activation
+### 3.3 Derivative of a Neuron's Activation (Recosdier from this point)
 
 ```latex
 \displaystyle{a = \sigma(w^Tx + b) = \sigma(z)}
@@ -857,7 +857,7 @@ Finally,
 ```
 ```latex
 \displaystyle{
-	\frac{da}{db} = \vec{(\hat b)}, \hat b_i = 1, z_i > 0; \hat a_i = 0, z_i < 0;
+	\frac{da}{db} = \vec{(\hat b)}, \hat b_i = 1, z_i > 0; \hat b_i = 0, z_i < 0;
 }
 ```
 
@@ -902,6 +902,16 @@ $$\frac{da}{dw}$$ is calculated in the previous step.
 	\frac{dC}{dw} = 0, z_i^l < 0
 }
 ```
+```latex
+\displaystyle{
+	\frac{dC}{db} = \frac{dC}{da}\frac{da}{db}
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{db} = \frac{1}{m}\sum_{e=1}^m(a_e^l - y_e) \hat b, \hat b_i = 1, z_i > 0; \hat b_i = 0, z_i < 0;
+}
+```
 
 ### 3.5. Gradient Descent Algorithm and SGD 
 
@@ -913,6 +923,72 @@ $$\frac{da}{dw}$$ is calculated in the previous step.
 ```
 
 $$\Theta_w$$, $$\Theta_b$$ - vectors of new calculated weight and biases, $$\nabla_w C$$ - presumably our diag from our $$\frac{dC}{dw}$$ matrix, $$\nabla_b C$$ - bias derivatives, $$\alpha$$ is a learning rate.
+
+
+## 4. Backpropagation
+### 4.1. The Error of a Node
+
+```latex
+\displaystyle{
+	\delta_j^l = \frac{dC}{dz^l_j}
+}
+```
+
+### 4.2. The Four Equations of Backpropagation 
+#### 4.2.1. Equation 1: The Error of the last Layer
+
+```latex
+\displaystyle{
+	\delta_j^L = \frac{dC}{da^L_j}\frac{da^L_j}{dz^L_j}, L - last \medspace layer
+}
+```
+```latex
+\displaystyle{
+	\delta_j^L = \frac{dC}{da^L_j}\sigma'(z^L_j)
+}
+```
+
+For entire layer,
+
+```latex
+\displaystyle{
+	\delta^L = \nabla_{a^L}{C}\sigma'(z^L)
+}
+```
+
+#### 4.2.2. Equation 2: The Error of any layer
+
+```latex
+\displaystyle{
+	\delta^l = ((W^{l+1})^T\delta^{l+1})\odot\sigma'(z^L)
+}
+```
+
+#### 4.2.3. Equation 3: The Derivative of the Cost w.r.t any bias
+
+```latex
+\displaystyle{
+	\frac{dC}{db^l} = \delta^l
+}
+```
+
+#### 4.2.4. Equation 4: The Derivative of the Cost w.r.t any weight 
+
+```latex
+\displaystyle{
+	\frac{dC}{dw_{ij}^l} = a_k^{l-1} \delta_j^l
+}
+```
+
+#### 4.2.5. Vectorizing Equation 4
+
+```latex
+\displaystyle{
+	\frac{dC}{dW^l} = b^l \otimes (a^{l-1})^T
+}
+```
+
+### 4.3 Tying Part III and Part IV together
 
 
 
