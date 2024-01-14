@@ -601,10 +601,10 @@ If $$f_{1j}$$ and $$f_{2j}$$ are elementwise functions, meaning that $$f_{1j}$$ 
 In general,
 
 ```latex
-(J f_{1j}(\vec v) \odot f_{2j}(\vec w))_{ij} = \frac{df_{1j}}{v_{j}} \odot f_{2j}(w_{j}) + f_{1j}(v_{j}) \odot \frac{df_{2j}}{dw_{j}}, i = j
+J (f_{1j}(\vec v) \odot f_{2j}(\vec w))_{ij} = \frac{df_{1j}}{v_{j}} \odot f_{2j}(w_{j}) + f_{1j}(v_{j}) \odot \frac{df_{2j}}{dw_{j}}, i = j
 ```
 ```latex
-(J f_{1j}(\vec v) \odot f_{2j}(\vec w))_{ij} = 0, i \neq j
+J (f_{1j}(\vec v) \odot f_{2j}(\vec w))_{ij} = 0, i \neq j
 ```
 
 If the product operation is just multiplication and $$f_{1j} = v_{j}$$ and $$f_{2j} = w_{j}$$, then $$\frac{df_{1j}(v_j)}{v_j} = \frac{d(v_j)}{v_j} = 1$$; $$\frac{df_{2j}(w_j)}{w_j} = \frac{d(w_j)}{w_j} = 1$$ and our Jacobian would be:
@@ -634,4 +634,285 @@ And again in general,
 J (\vec v \vec w) = diag(w_j + v_j)
 ```
 
-### 3.2.3 Derivative of a Scalar Expansion
+#### 3.2.3 Derivative of a Scalar Expansion
+
+```latex
+\displaystyle{
+	n \odot \vec v =
+	n \odot \begin{bmatrix}
+		v_1 \\ \\
+		v_2 \\ \\
+		\vdots \\ \\
+		v_n
+	\end{bmatrix} =
+	\begin{bmatrix}
+		n \odot v_1 \\ \\
+		n \odot v_2 \\ \\
+		\vdots \\ \\
+		n \odot v_n
+	\end{bmatrix}
+}
+```
+```latex
+\displaystyle{
+	(n \odot \vec v)' = \nabla (n \odot \vec v) = \nabla n \odot \vec v + n \odot \nabla \vec v =
+}
+```
+```latex
+\displaystyle{
+	=
+	\begin{bmatrix}
+		\frac{dn}{dv_1} \odot v_1 + n \odot \frac{dv_1}{v_1} \\ \\
+		\frac{dn}{dv_2} \odot v_2 + n \odot \frac{dv_2}{v_2} \\ \\
+		\vdots \\ \\
+		\frac{dn}{dv_n} \odot v_n + n \odot \frac{dv_n}{v_n}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		n \odot \frac{dv_1}{v_1} \\ \\
+		n \odot \frac{dv_2}{v_2} \\ \\
+		\vdots \\ \\
+		n \odot \frac{dv_n}{v_n}
+	\end{bmatrix}
+	=
+	n \odot \nabla \vec v
+}
+```
+
+If the prodcut operation is multiplication or addition, then
+
+```latex
+\displaystyle{
+	n \nabla \vec v = n \vec 1; n + \nabla \vec v = n + \vec 1;
+}
+```
+
+If we have some $$f(\vec v)$$ which is a vector of functions $$[f_1(\vec v), f_2(\vec v), \ldots, f_n(\vec v)]$$, then we can calculate a Jacobian of the product of that function and some scalar $$s$$:
+
+```latex
+\displaystyle{
+	J (s \odot f(\vec v)) =
+	\begin{bmatrix}
+		\nabla^T (s \odot f_1(\vec v)) \\ \\
+		\nabla^T (s \odot f_2(\vec v)) \\ \\
+		\vdots \\ \\
+		\nabla^T (s \odot f_n(\vec v))
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		s \odot \nabla^T f_1(\vec v) \\ \\
+		s \odot \nabla^T f_2(\vec v) \\ \\
+		\vdots \\ \\
+		s \odot \nabla^T f_n(\vec v)
+	\end{bmatrix}
+}
+```
+
+Again, if $$f_i(\vec v)$$ is elementwise function, meaning that $$f_i(\vec v)$$ affects only $$v_i$$, then
+
+```latex
+J (s \odot f(\vec v)) = diag(s\frac{df}{dv_i}),
+```
+if $$\odot$$ is multiplication,
+
+or
+
+```latex
+J (s \odot f(\vec v)) = diag(s + \frac{df}{dv_i}),
+```
+if $$\odot$$ is addition.
+
+If $$f(v_i) = v_i$$, then
+
+```latex
+J (s \odot f(\vec v)) = diag(s),
+```
+if $$\odot$$ is multiplication,
+
+or
+
+```latex
+J (s \odot f(\vec v)) = diag(s + 1),
+```
+if $$\odot$$ is addition.
+
+#### 3.2.4 Derivative of a Sum
+
+```latex
+\displaystyle{
+	S = \sum_{i = 1}^n f_i(\vec v)
+}
+```
+```latex
+\displaystyle{
+	d S = d(\sum_{i = 1}^n f_i(\vec v)) = \sum_{i = 1}^n \nabla f_i(\vec v) =
+	\sum_{i = 1}^n \begin{bmatrix}
+		\frac{df_i}{dv_1} \\ \\
+		\frac{df_i}{dv_2} \\ \\
+		\vdots \\ \\
+		\frac{df_i}{dv_n}
+	\end{bmatrix}
+}
+```
+
+If $$f_i(\vec v)$$ is elementwise function regarding $$v_i$$, then
+
+```latex
+\nabla f_i(\vec v) = \vec {v_{i}}, {\vec {v_{i}}}_{i} = \frac{df_i}{dv_i}; {\vec {v_{i}}}_{j \neq i} = 0;
+```
+
+```latex
+d S = \sum_{i = 1}^n \vec {v_{i}} = \vec{\frac{df}{dv}} =
+\begin{bmatrix}
+	\frac{df_1}{dv_1} \\ \\
+	\frac{df_2}{dv_2} \\ \\
+	\vdots \\ \\
+	\frac{df_n}{dv_n}
+\end{bmatrix}
+```
+
+If $$f_i(v_i) = v_i$$, then
+
+```latex
+d S = \vec 1
+```
+
+### 3.3 Derivative of a Neuron's Activation
+
+```latex
+\displaystyle{a = \sigma(w^Tx + b) = \sigma(z)}
+```
+```latex
+\displaystyle{\frac{da}{dw} = \frac{d\sigma}{dz}\frac{dz}{dw}}
+```
+```latex
+\displaystyle{\frac{da}{db} = \frac{d\sigma}{dz}\frac{dz}{db}}
+```
+```latex
+\displaystyle{
+	a = \sigma(\sum(w\odot x) + b)
+}
+```
+```latex
+\displaystyle{
+	a = \sigma(z(s)); z(s) = s(h) + b; s(h) = \sum(h(w)); h(w) = w \odot x
+}
+```
+```latex
+\displaystyle{
+	\frac{da}{dw} = \frac{d\sigma}{dz}\frac{dz}{ds}\frac{ds}{dh}\frac{dh}{dw}
+}
+```
+```latex
+\sigma(x) = max(0, x)
+```
+```latex
+\displaystyle{
+	\frac{dh}{dw} = \frac{d(w \odot x)}{dw} = diag(w_i + x_i) \medspace (from \medspace 3.2.2.)
+}
+```
+```latex
+\displaystyle{
+	\frac{ds}{dh} = \frac{d(\sum_{i=1}^n f_i(w, x))}{dh(w)}; f_i(w, x) = w_{j = i} + x_{j = i}, f_i(w, x) = 0_{j \neq i}
+}
+```
+```latex
+\displaystyle{
+	\frac{ds}{dh} = \vec 1 \medspace (from \medspace 3.2.4.)
+}
+```
+```latex
+\displaystyle{
+	\frac{dz}{ds} = \frac{dz(\vec s \odot \vec b)}{ds} = \frac{dz(\vec s + \vec b)}{ds}
+}
+```
+Since, in this case $$b$$ is a scalar vector, then from (3.2.3.)
+```latex
+\displaystyle{
+	\frac{dz}{ds} = diag(b_i + 1)
+}
+```
+```latex
+\displaystyle{
+	\frac{d\sigma}{dz} = \vec{\hat z}, \hat z_i = 0 (z_i < 0), \hat z_i = 1 (z_i > 0)
+}
+```
+
+Finally,
+
+```latex
+\displaystyle{
+	\frac{da}{dw} = \vec{\hat z} diag(b_i + 1) \vec{1} diag(w_i + x_i) = \vec{\hat z} diag(b_i + 1) diag (w_i + x_i) = 
+}
+```
+```latex
+\displaystyle{
+	= \vec{\hat z} diag((b_i + 1)(w_i + x_i)) = \vec{\hat z} diag(b_iw_i + b_ix_i + w_i + x_i)
+}
+```
+```latex
+\displaystyle{
+	\frac{da}{dw} = diag(\hat a) , \hat a_i = b_iw_i + b_ix_i + w_i + x_i, z_i > 0; \hat a_i = 0, z_i < 0;
+}
+```
+```latex
+\displaystyle{
+	\frac{da}{db} = \vec{(\hat b)}, \hat b_i = 1, z_i > 0; \hat a_i = 0, z_i < 0;
+}
+```
+
+### 3.4. Derivative of the Cost for a Simple Network
+
+```latex
+\displaystyle{
+	C = \frac{1}{2m}\sum_{e=1}^m(y_e - \hat y_e)^2 = \frac{1}{2m}\sum_{e=1}^m(y_e - a_e^l)^2
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{dw} = \frac{dC}{da}\frac{da}{dw}
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{da} = \frac{1}{2m}\sum_{e=1}^m\frac{d((y_e - a_e^l)^2)}{da} = \frac{1}{2m}\sum_{e=1}^m\frac{d((y_e - a_e^l)^2)}{da}
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{da} = \frac{1}{m}\sum_{e=1}^m(a_e^l - y_e)
+}
+```
+
+$$\frac{da}{dw}$$ is calculated in the previous step.
+
+
+```latex
+\displaystyle{
+	\frac{dC}{dw} = \frac{1}{m}\sum_{i=e}^m(a_e^l - y_e) diag({\hat a^l})_e
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{dw} = \frac{1}{m}\sum_{e=1}^m(a_e^l - y_e) diag(b_i^lw_i^l + b_i^lx_i^l + w_i^l + x_i^l)_e, z_i^l > 0
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{dw} = 0, z_i^l < 0
+}
+```
+
+### 3.5. Gradient Descent Algorithm and SGD 
+
+```latex
+\Theta_w = \Theta_w - \alpha \nabla_w C
+```
+```latex
+\Theta_b = \Theta_b - \alpha \nabla_b C
+```
+
+$$\Theta_w$$, $$\Theta_b$$ - vectors of new calculated weight and biases, $$\nabla_w C$$ - presumably our diag from our $$\frac{dC}{dw}$$ matrix, $$\nabla_b C$$ - bias derivatives, $$\alpha$$ is a learning rate.
+
+
+
