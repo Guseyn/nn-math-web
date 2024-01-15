@@ -72,7 +72,7 @@ $$a^l$$ can be used as input vector for next layer $$l+1$$. Let's expand further
 ```
 
 $$a^l$$ - result vector of current layer
-$$a^{l-1}$$ - input vector of previous layer or $$a^0=x^1$$ - which is input for the whole network
+$$a^{l-1}$$ - result vector of previous layer or $$a^0=x^1$$ - which is input for the whole network
 $$W^l$$ - matrix of weights between previous layer and current layer, which contains elements $$w_{jk}^l$$, where $$l$$ - index of current layer, $$j$$ - index of the neuron in current layer $$l$$ where the weight is leading to, and $$k$$ - index of the neuron in previous layer $$l - 1$$ where the weight is coming from. $$1 \leq j \leq n^l$$; $$n^l$$ - number of neurons in current layer, $$0 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in previous layer $$l-1$$
 
 ```latex
