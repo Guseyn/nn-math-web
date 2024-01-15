@@ -482,13 +482,13 @@ a^l = \sigma(z^l)
 ## 3. Derivatives of Neural Networks and Gradient Descent
 ### 3.1. Cost Function
 
-Let's say $$m$$ - number of of training examples, $$\hat{y}$$ is a total output of the neural network (is the last layer activation $$a^l$$).
+Let's say $$m$$ - number of of training examples, $$\hat y_m$$ is a total output of the neural network (is the last layer activation $$a^l$$) in the training example $$m$$.
 
 Then the cost can be calculated as:
 
 ```latex
 \displaystyle{
-	C = \frac{1}{2m}\sum_{i = 0}^{m} (y - \hat y)^2
+	C = \frac{1}{2m}\sum_{i = 0}^{m} (y - \hat y_m)^2
 }
 ```
 
