@@ -151,9 +151,9 @@ Having discussed everything above, we can conclude what we need for our input fo
 - We set number of layers in our network $$L + 1$$, where $$L$$ - index of last layer, and $$0$$ is used for input vector.
 - We set number of neurons in each layer with index $$l$$. Let's have a vector $$n$$ which represents number of neurons in each layer. Then $$n^l$$ is a number of neurons in each layer with index $$l$$.
 - We set initial input vector $$x^1 = a^0$$.
-- We set matrices of weights between each pair of neighbouring layers (or initial input $$x^1=a^0$$). Let's express it as $$W$$ - vector of matrices, where $$W^l$$ is a matrix of weights between layers $$l$$ and $$l - 1$$. Weight themselves can be setup randomly, since we have a goal to get right weights for our network.
-- We set a vector of biases for each layer $$b$$, where $$b^l$$ is a bias for a layer $$l$$.
-- We set a vector of desired results for learning examples $$y$$, where $$y_e$$ is a desired result (as a vector of scalars like $$a^L_e$$) for an example with index $$e$$, $$1 \leq e \leq E$$, $$E$$ - total number of examples.
+- We set matrices of weights between each pair of neighbouring layers (or initial input $$x^1=a^0$$). Let's express it as $$W$$ - vector of matrices, where $$W^l$$ is a matrix of weights between layers $$l$$ and $$l - 1$$. Weights themselves can be setup randomly, since we have a goal to get right weights for our network.
+- We set a vector of biases for each layer $$b$$, where $$b^l$$ is a bias for a layer $$l$$. They can also be some random numbers.
+- We set a vector of desired results for a vector of learning examples $$y$$, where $$y_e$$ is a desired result (as a vector of scalars like $$a^L_e$$) for an example with index $$e$$, $$1 \leq e \leq E$$, $$E$$ - total number of examples.
 
 ## 8. Finding Minimum of Cost Function
 
@@ -206,7 +206,7 @@ It's also worth noting that finding $$C'(W)\|C'(b)$$ means finding all $$\frac{d
 }
 ```
 
-## 9. Finding Derivative of Cost Function With Regard to Weights
+## 9. Finding Derivative of Cost Function with Regard to Weights
 
 When we try to find $$C'(W)$$, it means that we need to find $$C$$ with regard to each $$W^l$$, therefore for each $$w^l_{jk}$$. In another words, we need to find $$\frac{dC}{dw_{jk}^l}$$ for each layer $$l$$, for each $$w^l_{kl}$$ in each matrix $$W^l$$ between layer $$l-1$$ and $$l$$.
 
@@ -240,7 +240,7 @@ As we discussed before $$z_e^L=a_e^{L-1}{W^L} + b^L$$, so
 }
 ```
 
-Let's now explore $$z^L$$:
+Let's now explore $$z^L_e$$:
 
 ```latex
 \displaystyle{
@@ -248,7 +248,7 @@ Let's now explore $$z^L$$:
 }
 ```
 
-Just for clarity, let's recall how can be written on element level:
+Just for clarity, let's recall how it can be written on element level:
 
 ```latex
 \displaystyle{
@@ -262,15 +262,15 @@ So, in the end we have following chain of derivatives:
 
 ```latex
 \displaystyle{
-	\frac{dC}{dW^l} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}\frac{dz_e^L}{dW^L}
+	\frac{dC}{dW^l} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}\frac{dz_e^L}{dW^l}
 }
 ```
 
-We can notice here very interesting detail: we are trying to find $${dC}/{dW^l}$$ for any layer $$l$$, but our chain seems like depends only on layer with index $$L$$ - last layer in the chain. In fact, this chain goes ever further or rather all the way back to the layer $$l=1$$. In another words, $${dW^L}$$ relies on $${dW^l}$$.
+We can notice here very interesting detail: we are trying to find $${dC}/{dW^l}$$ for any layer $$l$$, but our chain seems like heavily depends on layer with index $$L$$ - last layer in the neural network. In fact, this chain goes ever further or rather all the way back to the layer $$l=1$$. In another words, $${dW^L}$$ relies on $${dW^l}$$.
 
-It seems, the best approach would be to find $${dC}/{dW^L}$$, and only then try to figure out other layers.
+It seems, the best approach would be to find $${dC}/{dW^L}$$ first, and only then try to figure out other layers.
 
-### 9.1. Finding Derivative of Cost Function With Regard to Weights In The Last Layer 
+### 9.1. Finding Derivative of Cost Function with Regard to Weights In The Last Layer 
 
 So we can find derivative $${dC}/{dW^L}$$,
 
@@ -306,10 +306,13 @@ Next, we need to find $$da^L_e/dz^L_e$$, or $$d\sigma(z^L_e)/d(z^L_e)$$. Basical
 \Bigl(\frac{da_e^L}{dz_e^L}\Bigr)_j =
 \displaystyle{
 	\begin{cases}
-		0; z_j < 0, 0 \leq j \leq n^L \\ \\
-		1; z_j, 0 \leq j \leq n^L \geq 0
+		0; (z_j^L)_e < 0 \\ \\
+		1; (z_j^L)_e \geq 0
 	\end{cases}
 }
+```
+```latex
+	0 \leq j \leq n^L
 ```
 
 $${da_e^L}/{dz_e^L}$$ is a vector, therefore we need to consider all $$z_j$$ separately to construct whole vector, $$1 \leq j \leq n^L$$.
@@ -320,13 +323,17 @@ Actually, $$max(0, z)$$ is not defind at $$z=0$$, but we can just assume that it
 \Bigl(\frac{da_e^L}{dz_e^L}\Bigr)_j =
 \displaystyle{
 	\begin{cases}
-		0; z_j < 0, 0 \leq j \leq n^L \\ \\
-		1; z_j > 0, 0 \leq j \leq n^L \\ \\
-		\epsilon; z_j = 0, 0 \leq j \leq n^L
+		0; (z_j^L)_e < 0 \\ \\
+		1; (z_j^L)_e > 0 \\ \\
+		\epsilon; (z_j^L)_e = 0
 	\end{cases}
 } \medspace \medspace \medspace [2]
 ```
-Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. When we multiply a vector to a matrix, we transpose our vector in order to apply the vector to all row in the matrix. Therefore,
+```latex
+	0 \leq j \leq n^L
+```
+
+Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. When we multiply a vector to a matrix, we transpose our vector in order to apply the vector to all rows in the matrix. Therefore,
 
 ```latex
 \displaystyle{
@@ -341,20 +348,115 @@ Now, let's combine results from [1], [2], [3] and write down $${dC}/{dW^L}$$:
 \displaystyle{
 	\Bigl(\frac{dC}{dW^L}\Bigr)_{jk} = \frac{1}{2E}\sum_{e=1}^{E}
 	\begin{cases}
-		0; z_j < 0, 0 \leq j \leq n^L \\ \\
-		2((a^L_j)_e - (y_j)_e) \cdot (a^{L-1}_k)^T_e; z_j > 0, 0 \leq j \leq n^L, 0 \leq k \leq n^{L-1} \\ \\
-		\epsilon; z_j = 0, 0 \leq j \leq n^L
+		0; (z_j^L)_e < 0 \\ \\
+		2((a^L_j)_e - (y_j)_e) \cdot (a^{L-1}_k)_e; (z_j^L)_e > 0 \\ \\
+		\epsilon; (z_j^L)_e = 0
 	\end{cases}
 }
+```
+```latex
+	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
 ```
 
 ```latex
 \displaystyle{
 	\Bigl(\frac{dC}{dW^L}\Bigr)_{jk} = \frac{1}{E}\sum_{e=1}^{E}
 	\begin{cases}
-		0; z_j < 0, 0 \leq j \leq n^L \\ \\
-		((a^L_j)_e - (y_j)_e) \cdot (a^{L-1}_k)^T_e; z_j > 0, 0 \leq j \leq n^L, 0 \leq k \leq n^{L-1} \\ \\
-		\epsilon; z_j = 0, 0 \leq j \leq n^L
+		0; (z_j^L)_e < 0 \\ \\
+		((a^L_j)_e - (y_j)_e) \cdot (a^{L-1}_k)_e; (z_j^L)_e > 0 \\ \\
+		\epsilon; (z_j^L)_e = 0
+	\end{cases}
+}
+```
+```latex
+	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
+```
+
+On element level, it would lool like this:
+
+```latex
+\displaystyle{
+	\frac{dC}{dw_{jk}^L} = \frac{1}{E}\sum_{e=1}^{E}
+	\begin{cases}
+		0; (z_j^L)_e < 0 \\ \\
+		((a^L_j)_e - (y_j)_e) \cdot (a^{L-1}_k)_e; (z_j^L)_e > 0 \\ \\
+		\epsilon; (z_j^L)_e = 0
+	\end{cases}
+}
+```
+```latex
+	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
+```
+
+So, to calculate next weights for the next iteration with index $$i+1$$, we do following:
+
+
+```latex
+	(w_{jk}^L)_{i+1} = (w_{jk}^L)_{i} - \alpha C'((w_{jk}^L)_i)
+```
+
+```latex
+	(w_{jk}^L)_{i+1} = (w_{jk}^L)_{i} -
+	\alpha\frac{1}{E}\sum_{e=1}^{E}
+	\begin{cases}
+		0; (z_j^L)_e < 0 \\ \\
+		((a^L_j)_e - (y_j)_e) \cdot (a^{L-1}_k)_e; (z_j^L)_e > 0 \\ \\
+		\epsilon; (z_j^L)_e = 0
+	\end{cases}
+```
+```latex
+	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
+```
+
+### 9.2. Finding Derivative of Cost Function with Regard to Weights in Any Layer
+
+So, how can we find derivative of cost function for any layer? We can assume that we can find the derivative in the layer with index $$l$$ with given derivative in the layer with index $$l+1$$, because as we discussed earlier, any given layer depends on previous ones.
+
+And we already calculated the derivative for layer $$L$$. If we find the derivative for layer $$L-1$$, we can use the same pattern or iterative method to find the derivative for all layers $$L-2$$, $$L-3$$, ..., 1.
+
+First, let's explore $${dz_e^L}/{dW^{L-1}}$$.
+
+```latex
+\displaystyle{
+	\frac{dz_e^L}{dW^{L-1}} = \frac{d(a_e^{L-1}{W^L} + b^L)}{dW^{L-1}} = \frac{d(\sigma(a_e^{L-2}{W^{L-1}} + b^{L-1}){W^L} + b^L)}{dW^{L-1}} =
+}
+```
+```latex
+\displaystyle{
+	= \frac{d(\sigma(a_e^{L-2}{W^{L-1}} + b^{L-1}){W^L})}{dW^{L-1}} =
+}
+```
+```latex
+\displaystyle{
+	= W^L\frac{d(\sigma(a_e^{L-2}{W^{L-1}} + b^{L-1}))}{d(a_e^{L-2}{W^{L-1}} + b^{L-1})}\frac{d(a_e^{L-2}{W^{L-1}} + b^{L-1})}{W^{L-1}} =
+}
+```
+```latex
+\displaystyle{
+	= W^L\frac{d(\sigma(a_e^{L-1}))}{d(a_e^{L-1})}(a^{L-2})^T_e = W^L\frac{da^{L-1}}{dz^{L-1}}(a^{L-2})^T_e
+}
+```
+
+Let's now write down whole $${dC}/{dW^{L-1}}$$:
+
+```latex
+\displaystyle{
+	\frac{dC}{dW^{L-1}} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}\frac{dz_e^L}{dW^{L-1}} =
+}
+```
+```latex
+\displaystyle{
+	=
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da^{L-1}}{dz^{L-1}}(a^{L-2})^T_e
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{dw_{jk}^{L-1}} = \frac{1}{E}\sum_{e=1}^{E}
+	\begin{cases}
+		0; (z_j^L)_e < 0 | (z_j^{L-1})_e < 0 \\ \\
+		((a^L_j)_e - (y_j)_e) \cdot w^L_{jk} \cdot (a^{L-2}_j)_e; (z_j^L)_e > 0 \& (z_j^{L-1})_e > 0 \\ \\
+		\epsilon; (z_j^L)_e = 0 | (z_j^{L-1})_e = 0
 	\end{cases}
 }
 ```
