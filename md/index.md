@@ -345,31 +345,35 @@ Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. W
 \displaystyle{
 	=
 	\begin{bmatrix}
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{1})_ew^L_{1k} + b^L)}{dw^L_{11}} &
-		\cdots
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{k})_ew^L_{1k} + b^L)}{dw^L_{1k}}
+		\frac{d((a^{L-1}_{1})_ew^L_{11} + b^L)}{dw^L_{11}} &
 		\cdots &
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{n^{L - 1}})_ew^L_{1k} + b^L)}{dw^L_{1n^{L-1}}} & \\ \\
+		\frac{d((a^{L-1}_{k})_ew^L_{1k} + b^L)}{dw^L_{1k}} &
+		\cdots &
+		\frac{d((a^{L-1}_{n^{L - 1}})_ew^L_{1n^{L-1}} + b^L)}{dw^L_{1n^{L-1}}} & \\ \\
 
+		\vdots &
+		\cdots &
 		\vdots &
 		\cdots &
 		\vdots \\ \\
 
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{1})_ew^L_{jk} + b^L)}{dw^L_{j1}} & 
-		\cdots
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{k})_ew^L_{jk} + b^L)}{dw^L_{jk}}
+		\frac{d((a^{L-1}_{1})_ew^L_{j1} + b^L)}{dw^L_{j1}} & 
 		\cdots &
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{n^{L-1}})_ew^L_{jk} + b^L)}{dw^L_{jn^{L-1}}} \\ \\
+		\frac{d((a^{L-1}_{k})_ew^L_{jk} + b^L)}{dw^L_{jk}} &
+		\cdots &
+		\frac{d((a^{L-1}_{n^{L-1}})_ew^L_{jn^{L-1}} + b^L)}{dw^L_{jn^{L-1}}} \\ \\
 
+		\vdots &
+		\cdots &
 		\vdots &
 		\cdots &
 		\vdots \\ \\
 
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{1})_ew^L_{jk} + b^L)}{dw^L_{n^L1}} & 
-		\cdots
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{k})_ew^L_{jk} + b^L)}{dw^L_{n^Lk}}
+		\frac{d((a^{L-1}_{1})_ew^L_{n^L1} + b^L)}{dw^L_{n^L1}} & 
 		\cdots &
-		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{n^{L-1}})_ew^L_{jk} + b^L)}{dw^L_{n^Ln^{L-1}}} \\ \\
+		\frac{d((a^{L-1}_{k})_ew^L_{n^Lk} + b^L)}{dw^L_{n^Lk}} &
+		\cdots &
+		\frac{d((a^{L-1}_{n^{L-1}})_ew^L_{n^Ln^{L-1}} + b^L)}{dw^L_{n^Ln^{L-1}}} \\ \\
 	\end{bmatrix}
 }
 ```
@@ -385,7 +389,7 @@ Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. W
 
 		\vdots &
 		\cdots &
-		\cdots &
+		\vdots &
 		\cdots &
 		\vdots \\ \\
 
@@ -397,7 +401,7 @@ Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. W
 
 		\vdots &
 		\cdots &
-		\cdots &
+		\vdots &
 		\cdots &
 		\vdots \\ \\
 
@@ -449,7 +453,7 @@ Now, let's combine results from [1], [2], [3] and write down $${dC}/{dW^L}$$:
 	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
 ```
 
-On element level, it would lool like this:
+On element level, it would look like this:
 
 ```latex
 \displaystyle{
@@ -490,8 +494,3 @@ So, to calculate next weights for the next iteration with index $$i+1$$, we do f
 So, how can we find derivative of cost function for any layer? We can assume that we can find the derivative in the layer with index $$l$$ with given derivative in the layer with index $$l+1$$, because as we discussed earlier, any given layer depends on previous ones.
 
 And we already calculated the derivative for layer $$L$$. If we find the derivative for layer $$L-1$$, we can use the same pattern or iterative method to find the derivative for all layers $$L-2$$, $$L-3$$, ..., 1.
-
-
-
-
-
