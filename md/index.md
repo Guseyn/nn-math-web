@@ -280,7 +280,7 @@ So we can find derivative $${dC}/{dW^L}$$,
 }
 ```
 
-Let's start with $${d\delta_e}/{da_e^L}$$ or $${d((y_e - a^L_e)^2)}/{d((y_e - a^L_e))}$$. $$(y_e - a^L_e)$$ - is a vector, therefore $$(y_e - a^L_e)^2$$ is a vector, so the result of it will be a gradient $$\nabla\delta_e$$.
+Let's start with $${d\delta_e}/{da_e^L}$$ or $${d(y_e - a^L_e)^2}/{d(y_e - a^L_e)}$$. $$(y_e - a^L_e)$$ - is a vector, therefore $$(y_e - a^L_e)^2$$ is a vector, so the result of it will be a gradient $$\nabla\delta_e$$.
 
 Let $$f_1(x)=x^2$$ and $$f_2(a^L_e) = y_e - a^L_e$$ (c - scalar), then $$f_1(f_2(a^L_e)) = (y_e - a^L_e)^2$$. Using chain rule, we will get:
 
@@ -334,6 +334,81 @@ Actually, $$max(0, z)$$ is not defind at $$z=0$$, but we can just assume that it
 ```
 
 Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. When we multiply a vector to a matrix, we transpose our vector in order to apply the vector to all rows in the matrix. Therefore,
+
+
+```latex
+\displaystyle{
+		\frac{d(a_e^{L-1}W^L + b^L)}{dW^L} =
+}
+```
+```latex
+\displaystyle{
+	=
+	\begin{bmatrix}
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{1})_ew^L_{1k} + b^L)}{dw^L_{11}} &
+		\cdots
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{k})_ew^L_{1k} + b^L)}{dw^L_{1k}}
+		\cdots &
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{n^{L - 1}})_ew^L_{1k} + b^L)}{dw^L_{1n^{L-1}}} & \\ \\
+
+		\vdots &
+		\cdots &
+		\vdots \\ \\
+
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{1})_ew^L_{jk} + b^L)}{dw^L_{j1}} & 
+		\cdots
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{k})_ew^L_{jk} + b^L)}{dw^L_{jk}}
+		\cdots &
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{n^{L-1}})_ew^L_{jk} + b^L)}{dw^L_{jn^{L-1}}} \\ \\
+
+		\vdots &
+		\cdots &
+		\vdots \\ \\
+
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{1})_ew^L_{jk} + b^L)}{dw^L_{n^L1}} & 
+		\cdots
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{k})_ew^L_{jk} + b^L)}{dw^L_{n^Lk}}
+		\cdots &
+		\frac{d(\sum_{k=1}^{n^{L-1}}(a^{L-1}_{n^{L-1}})_ew^L_{jk} + b^L)}{dw^L_{n^Ln^{L-1}}} \\ \\
+	\end{bmatrix}
+}
+```
+```latex
+\displaystyle{
+	=
+	\begin{bmatrix}
+		a^{L-1}_{1} &
+		\cdots &
+		a^{L-1}_{k} &
+		\cdots &
+		a^{L-1}_{n^{L - 1}} \\ \\
+
+		\vdots &
+		\cdots &
+		\cdots &
+		\cdots &
+		\vdots \\ \\
+
+		a^{L-1}_{1} &
+		\cdots &
+		a^{L-1}_{k} &
+		\cdots &
+		a^{L-1}_{n^{L - 1}} \\ \\
+
+		\vdots &
+		\cdots &
+		\cdots &
+		\cdots &
+		\vdots \\ \\
+
+		a^{L-1}_{1} &
+		\cdots &
+		a^{L-1}_{k} &
+		\cdots &
+		a^{L-1}_{n^{L - 1}} \\ \\
+	\end{bmatrix}
+}
+```
 
 ```latex
 \displaystyle{
@@ -414,49 +489,7 @@ So, how can we find derivative of cost function for any layer? We can assume tha
 
 And we already calculated the derivative for layer $$L$$. If we find the derivative for layer $$L-1$$, we can use the same pattern or iterative method to find the derivative for all layers $$L-2$$, $$L-3$$, ..., 1.
 
-First, let's explore $${dz_e^L}/{dW^{L-1}}$$.
 
-```latex
-\displaystyle{
-	\frac{dz_e^L}{dW^{L-1}} = \frac{d(a_e^{L-1}{W^L} + b^L)}{dW^{L-1}} = \frac{d(\sigma(a_e^{L-2}{W^{L-1}} + b^{L-1}){W^L} + b^L)}{dW^{L-1}} =
-}
-```
-```latex
-\displaystyle{
-	= \frac{d(\sigma(a_e^{L-2}{W^{L-1}} + b^{L-1}){W^L})}{dW^{L-1}} =
-}
-```
-```latex
-\displaystyle{
-	= W^L\frac{d(\sigma(a_e^{L-2}{W^{L-1}} + b^{L-1}))}{d(a_e^{L-2}{W^{L-1}} + b^{L-1})}\frac{d(a_e^{L-2}{W^{L-1}} + b^{L-1})}{W^{L-1}} =
-}
-```
-```latex
-\displaystyle{
-	= W^L\frac{d(\sigma(a_e^{L-1}))}{d(a_e^{L-1})}(a^{L-2})^T_e = W^L\frac{da^{L-1}}{dz^{L-1}}(a^{L-2})^T_e
-}
-```
 
-Let's now write down whole $${dC}/{dW^{L-1}}$$:
 
-```latex
-\displaystyle{
-	\frac{dC}{dW^{L-1}} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}\frac{dz_e^L}{dW^{L-1}} =
-}
-```
-```latex
-\displaystyle{
-	=
-	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da^{L-1}}{dz^{L-1}}(a^{L-2})^T_e
-}
-```
-```latex
-\displaystyle{
-	\frac{dC}{dw_{jk}^{L-1}} = \frac{1}{E}\sum_{e=1}^{E}
-	\begin{cases}
-		0; (z_j^L)_e < 0 | (z_j^{L-1})_e < 0 \\ \\
-		((a^L_j)_e - (y_j)_e) \cdot w^L_{jk} \cdot (a^{L-2}_j)_e; (z_j^L)_e > 0 \& (z_j^{L-1})_e > 0 \\ \\
-		\epsilon; (z_j^L)_e = 0 | (z_j^{L-1})_e = 0
-	\end{cases}
-}
-```
+
