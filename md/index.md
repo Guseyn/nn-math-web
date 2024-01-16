@@ -377,11 +377,11 @@ Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. W
 \displaystyle{
 	=
 	\begin{bmatrix}
-		a^{L-1}_{1} &
+		(a^{L-1}_{1})_e &
 		\cdots &
-		a^{L-1}_{k} &
+		(a^{L-1}_{k})_e &
 		\cdots &
-		a^{L-1}_{n^{L - 1}} \\ \\
+		(a^{L-1}_{n^{L - 1}})_e \\ \\
 
 		\vdots &
 		\cdots &
@@ -389,11 +389,11 @@ Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. W
 		\cdots &
 		\vdots \\ \\
 
-		a^{L-1}_{1} &
+		(a^{L-1}_{1})_e &
 		\cdots &
-		a^{L-1}_{k} &
+		(a^{L-1}_{k})_e &
 		\cdots &
-		a^{L-1}_{n^{L - 1}} \\ \\
+		(a^{L-1}_{n^{L - 1}})_e \\ \\
 
 		\vdots &
 		\cdots &
@@ -401,14 +401,16 @@ Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. W
 		\cdots &
 		\vdots \\ \\
 
-		a^{L-1}_{1} &
+		(a^{L-1}_{1})_e &
 		\cdots &
-		a^{L-1}_{k} &
+		(a^{L-1}_{k})_e &
 		\cdots &
-		a^{L-1}_{n^{L - 1}} \\ \\
+		(a^{L-1}_{n^{L - 1}})_e \\ \\
 	\end{bmatrix}
 }
 ```
+
+Since all $$n^L$$ rows in the matrix are the same, then we can use transposed vector:
 
 ```latex
 \displaystyle{
