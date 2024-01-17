@@ -12,7 +12,7 @@ $$a$$ - rusult or activation of a neuron (scalar)
 $$x$$ - vector with inputs with length $${n}$$
 $$w$$ - vector of weights with length $${n}$$
 $$b$$ - scalar bias
-$$\sigma$$ - activation function, for example $$ReLU(x) = max(0, x)$$
+$$\sigma$$ - activation function, we will use $$ReLU(x) = max(0, x)$$
 
 ## 2. Neuron in Terms of Layers in a Neuron Network
 
@@ -150,8 +150,8 @@ Having discussed everything above, we can conclude what we need for our input fo
 
 - We set number of layers in our network $$L + 1$$, where $$L$$ - index of last layer, and $$0$$ is used for input vector.
 - We set number of neurons in each layer with index $$l$$. Let's have a vector $$n$$ which represents number of neurons in each layer. Then $$n^l$$ is a number of neurons in each layer with index $$l$$.
-- We set initial input vector $$x^1 = a^0$$.
-- We set matrices of weights between each pair of neighbouring layers (or initial input $$x^1=a^0$$). Let's express it as $$W$$ - vector of matrices, where $$W^l$$ is a matrix of weights between layers $$l$$ and $$l - 1$$. Weights themselves can be setup randomly, since we have a goal to get right weights for our network.
+- We set initial input vector $$x^1_e = a^0_e$$ for a learning example with index $$e$$.
+- We set matrices of weights between each pair of neighbouring layers (or initial input $$x^1_e=a^0_e$$). Let's express it as $$W$$ - vector of matrices, where $$W^l$$ is a matrix of weights between layers $$l$$ and $$l - 1$$. Weights themselves can be setup randomly, since we have a goal to get right weights for our network.
 - We set a vector of biases for each layer $$b$$, where $$b^l$$ is a bias for a layer $$l$$. They can also be some random numbers.
 - We set a vector of desired results for a vector of learning examples $$y$$, where $$y_e$$ is a desired result (as a vector of scalars like $$a^L_e$$) for an example with index $$e$$, $$1 \leq e \leq E$$, $$E$$ - total number of examples.
 
@@ -338,7 +338,7 @@ Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. W
 
 ```latex
 \displaystyle{
-		\frac{d(a_e^{L-1}W^L + b^L)}{dW^L} =
+	\frac{d(a_e^{L-1}W^L + b^L)}{dW^L} =
 }
 ```
 ```latex
@@ -491,6 +491,103 @@ So, to calculate next weights for the next iteration with index $$i+1$$, we do f
 
 ### 9.2. Finding Derivative of Cost Function with Regard to Weights in Any Layer
 
-So, how can we find derivative of cost function for any layer? We can assume that we can find the derivative in the layer with index $$l$$ with given derivative in the layer with index $$l+1$$, because as we discussed earlier, any given layer depends on previous ones.
+So, how can we find derivative of cost function for any layer? We can assume that we can find the derivative in the layer with index $$l$$ with given derivative in the layer with index $$l+1$$, because any given layer depends on previous ones.
 
-And we already calculated the derivative for layer $$L$$. If we find the derivative for layer $$L-1$$, we can use the same pattern or iterative method to find the derivative for all layers $$L-2$$, $$L-3$$, ..., 1.
+And we already calculated the derivative for layer $$L$$. If we find the derivative for layer $$L-1$$, we can use the same pattern or iterative method to find derivatives for all layers $$L-2$$, $$L-3$$, ..., 1.
+
+Let's explore $${dC}/{dW^{L-1}}$$:
+
+
+```latex
+\displaystyle{
+	\frac{dC}{dW^{L-1}} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}\frac{dz_e^L}{dW^{L-1}}
+}
+```
+
+We calculated all the derivatives before, except $${dz_e^L}/{dW^{L-1}}$$, so let's find it:
+
+```latex
+\displaystyle{
+	\frac{dz_e^L}{dW^{L-1}} =
+	\frac{d(a_e^{L-1}W^L + b^L)}{dW^{L-1}} =
+	\frac{d(\sigma(a_e^{L-2}W^{L-1} + b^{L-1})W^L + b^L)}{dW^{L-1}} =
+}
+```
+```latex
+\displaystyle{
+	=
+	\frac{d(\sigma(z_e^{L-1})W^L + b^L)}{dW^{L-1}} =
+	W^L\sigma'(z^{L-1}_e)\frac{dz_e^{L-1}}{dW^{L-1}} =
+	W^L\frac{da_e^{L-1}}{dz_e^{L-1}}\frac{dz_e^{L-1}}{dW^{L-1}}
+}
+```
+
+So $${dC}/{dW^{L-1}}$$ would look like:
+
+```latex
+\displaystyle{
+	\frac{dC}{dW^{L-1}} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}\frac{dz_e^{L-1}}{dW^{L-1}}
+}
+```
+
+We can calculate $${da^{L-1}_e}/dz^{L-1}$$ in the same way as we calculated $${da^{L}_e}/dz^{L}$$:
+
+```latex
+\Bigl(\frac{da_e^{L-1}}{dz_e^{L-1}}\Bigr)_j =
+\displaystyle{
+	\begin{cases}
+		0; (z_j^{L-1})_e < 0 \\ \\
+		1; (z_j^{L-1})_e > 0 \\ \\
+		\epsilon; (z_j^{L-1})_e = 0
+	\end{cases}
+}
+```
+```latex
+	0 \leq j \leq n^{L-1}
+```
+
+And we can calculate $${dz_e^{L-1}}/{dW^{L-1}}$$ in the same way as we calculated $${dz_e^{L}}/{dW^{L}}$$:
+
+```latex
+\displaystyle{
+	\frac{dz_e^{L-1}}{dW^{L-1}} =
+	\frac{d(a_e^{L-2}W^{L-1} + b^{L-1})}{dW^{L-1}} =
+	(a^{L-2}_e)^T
+}
+```
+
+In the end, we can write down derivative of the cost function for layer $$L-1$$ on the element level:
+
+```latex
+\displaystyle{
+	\frac{dC}{dw_{jk}^{L-1}} = \frac{1}{E}\sum_{e=1}^{E}
+	\begin{cases}
+		0; \sum_{i=1}^{n^L}(z_i^{L})_e < 0 | (z_j^{L-1})_e < 0 \\ \\
+		(\sum_{i=1}^{n^L}((a^L_i)_e - (y_i)_e) \cdot w_{ij}^{L}) \cdot (a^{L-2}_k)_e; (z_j^L)_e > 0 \& (z_j^{L-1})_e > 0 \\ \\
+		\epsilon; \sum_{i=1}^{n^L}(z_i^{L})_e = 0 | (z_j^{L-1})_e = 0
+	\end{cases}
+}
+```
+```latex
+	0 \leq i \leq n^{L}, 0 \leq j \leq n^{L-1}, 0 \leq k \leq n^{L-2}
+```
+
+As you see, in order to propagate all $$a^L_e-y_e$$ values, we need to adjust indexes and multiply scalar values (i.e. sums of all elements in the vector) of the vector $$a^L_e-y_e$$ to values $$w_{ij}^L$$, where we also adjusted indices, since index $$i$$ relates to the layer $$L$$, $$j$$ relates to the layer $$L-1$$ and k relates to layer $$L-2$$.
+
+
+To train our intuition and see the precise pattern, let's find $${dC}/{dw_{jk}^{L-2}}$$.
+
+By applying the same calculations, we can conclude that $${dC}/{dW^{L-2}}$$ would look like:
+
+```latex
+\displaystyle{
+	\frac{dC}{dW^{L-2}} =
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}}\frac{dz_e^{L-2}}{dW^{L-2}} =
+}
+```
+```latex
+\displaystyle{
+	=
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}}a^{L-3}
+}
+```
