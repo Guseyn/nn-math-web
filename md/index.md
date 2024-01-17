@@ -30,7 +30,7 @@ or
 }
 ```
 
-$$n$$ - vector of number of neurons in each layer.
+$$n$$ - vector with number of neurons in each layer.
 $$n^l$$ - number of neurons in layer with index $$l$$.
 $$n^{l-1}$$ - number of neurons in layer with index $$l-1$$ (previous layer).
 $$a_j^l$$ - result of a neuron in current layer $$l$$ with index $$j$$ where $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
@@ -39,7 +39,7 @@ $$a^{l - 1}$$ - result as a vector of nerons in previous layer, which is used as
 $$a_k^{l-1}$$ - result of neuron with index k in the previous layer $$l-1$$, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
 $$x^1=a^0$$ - very first input for neural network can be considered as activation output with index $$0$$.
 $$w_{jk}^l$$ - weight, leading in current layer $$l$$ for a neuron with index $$j$$ and comming from a neuron with index $$k$$ in the previous layer $$l-1$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer and $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
-$$b^l$$ - bias, which is used for current layer. It also can be different for each neuron like $$b_j^l$$, $$0 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
+$$b^l$$ - bias, which is used for current layer. It also can be different for each neuron like $$b_j^l$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
 
 Let's define $$z^l_j$$ as
 
@@ -73,7 +73,7 @@ $$a^l$$ can be used as input vector for next layer $$l+1$$. Let's expand further
 
 $$a^l$$ - result vector of current layer
 $$a^{l-1}$$ - result vector of previous layer or input for current layer, $$a^0=x^1$$ - input for the whole network
-$$W^l$$ - matrix of weights between previous layer and current layer, which contains elements $$w_{jk}^l$$, where $$l$$ - index of current layer, $$j$$ - index of the neuron in current layer $$l$$ where the weight is leading to, and $$k$$ - index of the neuron in previous layer $$l - 1$$ where the weight is coming from. $$1 \leq j \leq n^l$$; $$n^l$$ - number of neurons in current layer, $$0 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in previous layer $$l-1$$
+$$W^l$$ - matrix of weights between previous layer and current layer, which contains elements $$w_{jk}^l$$, where $$l$$ - index of current layer, $$j$$ - index of the neuron in current layer $$l$$ where the weight is leading to, and $$k$$ - index of the neuron in previous layer $$l - 1$$ where the weight is coming from. $$1 \leq j \leq n^l$$; $$n^l$$ - number of neurons in current layer, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in previous layer $$l-1$$
 
 ```latex
 \displaystyle{
@@ -312,12 +312,12 @@ Next, we need to find $$da^L_e/dz^L_e$$, or $$d\sigma(z^L_e)/d(z^L_e)$$. Basical
 }
 ```
 ```latex
-	0 \leq j \leq n^L
+	1 \leq j \leq n^L
 ```
 
 $${da_e^L}/{dz_e^L}$$ is a vector, therefore we need to consider all $$z_j$$ separately to construct whole vector, $$1 \leq j \leq n^L$$.
 
-Actually, $$max(0, z)$$ is not defind at $$z=0$$, but we can just assume that it very close to some very small $$\epsilon$$, so we can rewrite the solution:
+Actually, $$max(0, z)$$ is not defind at $$z=0$$, but we can just assume that it's very close to some very small $$\epsilon$$, so we can rewrite the solution:
 
 ```latex
 \Bigl(\frac{da_e^L}{dz_e^L}\Bigr)_j =
@@ -330,7 +330,7 @@ Actually, $$max(0, z)$$ is not defind at $$z=0$$, but we can just assume that it
 } \medspace \medspace \medspace [2]
 ```
 ```latex
-	0 \leq j \leq n^L
+	1 \leq j \leq n^L
 ```
 
 Finally, let's find $${dz_e^L}/{dW^L}$$ or $${d(a_e^{L-1}W^L + b^L)}/{dW^L}$$. When we multiply a vector to a matrix, we transpose our vector in order to apply the vector to all rows in the matrix. Therefore,
@@ -436,7 +436,7 @@ Now, let's combine results from [1], [2], [3] and write down $${dC}/{dW^L}$$:
 }
 ```
 ```latex
-	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
+	1 \leq j \leq n^L, 1 \leq k \leq n^{L-1}
 ```
 
 ```latex
@@ -450,7 +450,7 @@ Now, let's combine results from [1], [2], [3] and write down $${dC}/{dW^L}$$:
 }
 ```
 ```latex
-	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
+	1 \leq j \leq n^L, 1 \leq k \leq n^{L-1}
 ```
 
 On element level, it would look like this:
@@ -466,7 +466,7 @@ On element level, it would look like this:
 }
 ```
 ```latex
-	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
+	1 \leq j \leq n^L, 1 \leq k \leq n^{L-1}
 ```
 
 So, to calculate next weights for the next iteration with index $$i+1$$, we do following:
@@ -486,7 +486,7 @@ So, to calculate next weights for the next iteration with index $$i+1$$, we do f
 	\end{cases}
 ```
 ```latex
-	0 \leq j \leq n^L, 0 \leq k \leq n^{L-1}
+	1 \leq j \leq n^L, 1 \leq k \leq n^{L-1}
 ```
 
 ### 9.2. Finding Derivative of Cost Function with Regard to Weights in Any Layer
@@ -543,7 +543,7 @@ We can calculate $${da^{L-1}_e}/dz^{L-1}$$ in the same way as we calculated $${d
 }
 ```
 ```latex
-	0 \leq j \leq n^{L-1}
+	1 \leq j \leq n^{L-1}
 ```
 
 And we can calculate $${dz_e^{L-1}}/{dW^{L-1}}$$ in the same way as we calculated $${dz_e^{L}}/{dW^{L}}$$:
@@ -560,19 +560,24 @@ In the end, we can write down derivative of the cost function for layer $$L-1$$ 
 
 ```latex
 \displaystyle{
-	\frac{dC}{dw_{jk}^{L-1}} = \frac{1}{E}\sum_{e=1}^{E}
+	\frac{dC}{dw_{jk}^{L-1}} = 
+}
+```
+```latex
+\displaystyle{
+	= \frac{1}{E}\sum_{e=1}^{E}
 	\begin{cases}
-		0; \sum_{i=1}^{n^L}(z_i^{L})_e < 0 | (z_j^{L-1})_e < 0 \\ \\
-		(\sum_{i=1}^{n^L}((a^L_i)_e - (y_i)_e) \cdot w_{ij}^{L}) \cdot (a^{L-2}_k)_e; (z_j^L)_e > 0 \& (z_j^{L-1})_e > 0 \\ \\
-		\epsilon; \sum_{i=1}^{n^L}(z_i^{L})_e = 0 | (z_j^{L-1})_e = 0
+		0; (z_j^{L-1})_e\sum_{i=1}^{n^L}(z_i^{L})_e < 0 \\ \\
+		[\sum_{i=1}^{n^L}((a^L_i)_e - (y_i)_e) \cdot w_{ij}^{L}] \cdot (a^{L-2}_k)_e; (z_j^{L-1})_e\sum_{i=1}^{n^L}(z_i^{L})_e > 0 \\ \\
+		\epsilon; (z_j^{L-1})_e\sum_{i=1}^{n^L}(z_i^{L})_e = 0
 	\end{cases}
 }
 ```
 ```latex
-	0 \leq i \leq n^{L}, 0 \leq j \leq n^{L-1}, 0 \leq k \leq n^{L-2}
+	1 \leq i \leq n^{L}, 1 \leq j \leq n^{L-1}, 1 \leq k \leq n^{L-2}
 ```
 
-As you see, in order to propagate all $$a^L_e-y_e$$ values, we need to adjust indexes and multiply scalar values (i.e. sums of all elements in the vector) of the vector $$a^L_e-y_e$$ to values $$w_{ij}^L$$, where we also adjusted indices, since index $$i$$ relates to the layer $$L$$, $$j$$ relates to the layer $$L-1$$ and k relates to layer $$L-2$$.
+As you see, in order to propagate all $$a^L_e-y_e$$ values, we need to adjust indices and multiply scalar values (i.e. sums of all elements in the vector) of the vector $$a^L_e-y_e$$ to values $$w_{ij}^L$$, where we also adjusted indices, since index $$i$$ relates to the layer $$L$$, $$j$$ relates to the layer $$L-1$$ and k relates to layer $$L-2$$.
 
 
 To train our intuition and see the precise pattern, let's find $${dC}/{dw_{jk}^{L-2}}$$.
@@ -588,6 +593,75 @@ By applying the same calculations, we can conclude that $${dC}/{dW^{L-2}}$$ woul
 ```latex
 \displaystyle{
 	=
-	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}}a^{L-3}
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}}(a^{L-3})_e^T
 }
 ```
+
+Let's dive into $${dC}/{dW^{L-2}}$$ on element level:
+
+```latex
+\displaystyle{
+	\frac{dC}{dw_{jk}^{L-2}} = 
+}
+```
+```latex
+\displaystyle{
+	= \frac{1}{E}\sum_{e=1}^{E}
+	\begin{cases}
+		0; (z_j^{L-2})_e\sum_{i=1}^{n^{L-1}}[(z_i^{L-1})_e\sum_{h=1}^{n^L}(z_h^{L})_e] < 0 \\ \\
+		\sum_{i=1}^{L-1} [[\sum_{h=1}^{n^L}((a^L_h)_e - (y_h)_e) \cdot w_{hi}^{L}] \cdot w^{L-1}_{ij}] \cdot a^{L-3}_k; (z_j^{L-2})_e\sum_{i=1}^{n^{L-1}}[(z_i^{L-1})_e\sum_{h=1}^{n^L}(z_h^{L})_e] > 0 \\ \\
+		\epsilon; (z_j^{L-2})_e\sum_{i=1}^{n^{L-1}}[(z_i^{L-1})_e\sum_{h=1}^{n^L}(z_h^{L})_e] = 0
+	\end{cases}
+}
+```
+```latex
+	1 \leq h \leq n^{L}, 1 \leq i \leq n^{L-1}, 1 \leq j \leq n^{L-2}, 1 \leq k \leq n^{L-3}
+```
+
+Again, we readjusting indices, so that $$j, k$$ would be aligned with the layers which we try to explore, in this case it's $$L-2$$ and $$L-3$$. It can be quite confusing on element or scalar level, but we can always come back to vectors and matrices to see general picture. Let's just try to see the pattern:
+
+```latex
+\displaystyle{
+	\frac{dC}{dW^L} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}\frac{dz_e^L}{dW^L}
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{dW^{L-1}} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}(a^{L-2})^T_e
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{dW^{L-2}} =
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}}(a^{L-3})_e^T
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{dW^{l}} =
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}} \cdots W^{l+1}\frac{da^l_e}{dz^l_e}(a^{l-1})^T_e
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{dW^{1}} =
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}} \cdots W^{2}\frac{da^1_e}{dz^1_e}(x^1)^T_e
+}
+```
+```latex
+\displaystyle{
+	x^1 = a^0
+}
+```
+
+So, basically on each layer we update our weights for the next iteration $$i+1$$:
+
+```latex
+\displaystyle{
+	W^l_{i+1} = W^l_{i} - \alpha C'(W^l_i)
+}
+```
+
+And using previously calculated derivatives, we update weights for each layer till $$l=1$$.
+
+## 10. Finding Derivative of Cost Function with Regard to Biases
