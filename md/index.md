@@ -40,6 +40,7 @@ $$a_k^{l-1}$$ - result of neuron with index k in the previous layer $$l-1$$, $$1
 $$x^1=a^0$$ - very first input for neural network can be considered as activation output with index $$0$$.
 $$w_{jk}^l$$ - weight, leading in current layer $$l$$ for a neuron with index $$j$$ and comming from a neuron with index $$k$$ in the previous layer $$l-1$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer and $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
 $$b^l$$ - bias, which is used for current layer. It also can be different for each neuron like $$b_j^l$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
+$$\sigma$$ - activation function, we will use $$ReLU(x) = max(0, x)$$
 
 Let's define $$z^l_j$$ as
 
