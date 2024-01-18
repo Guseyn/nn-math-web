@@ -241,6 +241,7 @@ div.base {
 .floating-link-panel {
   display: block;
   background-color: #FFFFFF;
+  font-family: Tahoma, sans-serif;
   margin: 0px auto 10px auto;
   width: 100%;
   font-size: 0.9em;
@@ -259,6 +260,10 @@ div.base {
 
 .floating-link-panel:first-child {
   margin-top: 10px;
+}
+
+#author a {
+  font-family: Tahoma, sans-serif;
 }
 
 .date {
