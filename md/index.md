@@ -139,7 +139,9 @@ $$E$$ - number of learning examples.
 $$y_e$$ - desired result for the example with index $$e$$.
 $$a^L_e$$ - output of the last layer $$L$$ (or, in another words, an entire network) for example with index $$e$$.
 
-Here we consider $$C$$ as $$C(W, b)$$, because vector $$W$$ of matrices $$W^l$$ determines weights and vector $$b$$ determines biases that affect our cost function.
+For each learning example with index $$e$$ we have  its own input $$x_e$$.
+
+Here we consider $$C$$ as $$C(W, b)$$, because vector $$W$$ of matrices $$W^l$$ determines weights and vector $$b$$ determines biases $$b^l$$ that affect our cost function.
 
 ## 6. Learning Goal
 
