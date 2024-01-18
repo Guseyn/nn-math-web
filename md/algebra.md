@@ -960,7 +960,7 @@ For entire layer,
 
 ```latex
 \displaystyle{
-	\delta^l = ((W^{l+1})^T\delta^{l+1})\odot\sigma'(z^L)
+	\delta^l = ((W^{l+1})^T\delta^{l+1})\odot\sigma'(z^l)
 }
 ```
 

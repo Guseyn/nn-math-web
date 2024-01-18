@@ -271,7 +271,7 @@ We can notice here very interesting detail: we are trying to find $${dC}/{dW^l}$
 
 It seems, the best approach would be to find $${dC}/{dW^L}$$ first, and only then try to figure out other layers.
 
-### 9.1. Finding Derivative of Cost Function with Regard to Weights In The Last Layer 
+### 9.1. Finding Derivative of Cost Function with Regard to Weights in the Last Layer 
 
 So we can find derivative $${dC}/{dW^L}$$,
 
@@ -655,7 +655,7 @@ Again, we readjusting indices, so that $$j, k$$ would be aligned with the layers
 }
 ```
 
-So, basically on each layer we update our weights for the next iteration $$i+1$$:
+So, basically for each layer we update our weights for the next iteration $$i+1$$:
 
 ```latex
 \displaystyle{
@@ -666,3 +666,148 @@ So, basically on each layer we update our weights for the next iteration $$i+1$$
 And using previously calculated derivatives, we update weights for each layer till $$l=1$$.
 
 ## 10. Finding Derivative of Cost Function with Regard to Biases
+
+Following the same logic as for weights, we can build our chain for biases:
+
+```latex
+\displaystyle{
+	\frac{dC}{db^l} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}\frac{dz_e^L}{db^l}
+}
+```
+
+And using the same trick, we can first find derivative of cost function with regard to biases in the last layer $$L$$ first.
+
+### 10.1. Finding Derivative of Cost Function with Regard to Biases in the Last Layer
+
+Let's focus on $${dz_e^L}/{db^l}$$, since all other derivatives are the same as for weights.
+
+```latex
+\displaystyle{
+	\frac{dz_e^L}{db^L} = \frac{d(a^{L-1}_eW^L+b^L)}{db^L} = (\vec 1)^T
+}
+```
+
+So we can conclude following:
+
+```latex
+\displaystyle{
+	\frac{dC}{db^L} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}
+}
+```
+
+On element level, it would look like this:
+
+```latex
+\displaystyle{
+	\frac{dC}{db_{j}^L} = \frac{1}{E}\sum_{e=1}^{E}
+	\begin{cases}
+		0; (z_j^L)_e < 0 \\ \\
+		((a^L_j)_e - (y_j)_e) \cdot 1; (z_j^L)_e > 0 \\ \\
+		\epsilon; (z_j^L)_e = 0
+	\end{cases}
+}
+```
+```latex
+	1 \leq j \leq n^L, 1 \leq k \leq n^{L-1}
+```
+
+So, to calculate next biases for the next iteration with index $$i+1$$, we do following:
+
+
+```latex
+	(b_{j}^L)_{i+1} = (b_{j}^L)_{i} - \alpha C'((b_{j}^L)_i)
+```
+
+```latex
+	(b_{j}^L)_{i+1} = (b_{j}^L)_{i} -
+	\alpha\frac{1}{E}\sum_{e=1}^{E}
+	\begin{cases}
+		0; (z_j^L)_e < 0 \\ \\
+		((a^L_j)_e - (y_j)_e) \cdot 1; (z_j^L)_e > 0 \\ \\
+		\epsilon; (z_j^L)_e = 0
+	\end{cases}
+```
+```latex
+	1 \leq j \leq n^L, 1 \leq k \leq n^{L-1}
+```
+
+Even if we had the same biases for any given layer $$l$$, nothing stops us to change biases individually for each neuron in that layer. 
+
+### 10.2. Finding Derivative of Cost Function with Regard to Biases in Any Layer
+
+Following the same pattern as for the weights, we can calculate derivatives of cost function with regard to any bias in the layers $$L-1$$, $$L-2$$, ..., $$l=1$$:
+
+```latex
+\displaystyle{
+	\frac{dC}{db^L} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{db^{L-1}} = \frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{db^{L-2}} =
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{db^{l}} =
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}} \cdots W^{l+1}
+}
+```
+```latex
+\displaystyle{
+	\frac{dC}{db^{1}} =
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}} \cdots W^{2}\frac{da^1_e}{dz^1_e}
+}
+```
+```latex
+\displaystyle{
+	x^1 = a^0
+}
+```
+
+To develop our intuition let's dive into $${dC}/{db^{L-2}}$$ on element level:
+
+```latex
+\displaystyle{
+	\frac{dC}{db_{j}^{L-2}} = 
+}
+```
+```latex
+\displaystyle{
+	= \frac{1}{E}\sum_{e=1}^{E}
+	\begin{cases}
+		0; (z_j^{L-2})_e\sum_{i=1}^{n^{L-1}}[(z_i^{L-1})_e\sum_{h=1}^{n^L}(z_h^{L})_e] < 0 \\ \\
+		\sum_{i=1}^{L-1} [[\sum_{h=1}^{n^L}((a^L_h)_e - (y_h)_e) \cdot w_{hi}^{L}] \cdot w^{L-1}_{ij}]; (z_j^{L-2})_e\sum_{i=1}^{n^{L-1}}[(z_i^{L-1})_e\sum_{h=1}^{n^L}(z_h^{L})_e] > 0 \\ \\
+		\epsilon; (z_j^{L-2})_e\sum_{i=1}^{n^{L-1}}[(z_i^{L-1})_e\sum_{h=1}^{n^L}(z_h^{L})_e] = 0
+	\end{cases}
+}
+```
+```latex
+	1 \leq h \leq n^{L}, 1 \leq i \leq n^{L-1}, 1 \leq j \leq n^{L-2}, 1 \leq k \leq n^{L-3}
+```
+
+For each layer we update our biases for the next iteration $$i+1$$:
+
+```latex
+\displaystyle{
+	b^l_{i+1} = b^l_{i} - \alpha C'(b^l_i)
+}
+```
+
+And using previously calculated derivatives, we update biases for each layer till $$l=1$$.
+
+## 11. How to Train Neural Network
+
+1. Setup neural network according [section#7](#7-what-goes-on-initial-input-in-neural-network).
+2. Find all activations for each layer in the network.
+3. Find the value of cost function across all the learning examples.
+4. If the value of the cost function is close to 0, then your network is trained, and you can use any other custom input to get the output. If the value of the cost function is not small enough, then go to next step 5.
+5. Find all the derivatives of the cost function with regard to any weight and bias.
+6. Update all your weights and biases.
+7. Repeat steps from 2.
