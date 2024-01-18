@@ -8,6 +8,10 @@ It is simply an extremely precise explanation of mathematics for neural networks
 
 If you find any errors or inaccuracies, please [submit an issue](https://github.com/Guseyn/nn-math-web/issues).
 
+# Web Page
+
+[Here is the link](https://guseyn.github.io/nn-math-web) to access the project online.
+
 # How to Run Locally
 
 ```
