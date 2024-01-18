@@ -6,6 +6,9 @@ const CustomIndexEndpoint = require('./endpoints/CustomIndexEndpoint')
 
 const mapperForStatic = (url) => {
   const parts = url.split('?')[0].split('/').filter(part => part !== '').slice(1)
+  if (parts.length === 0) {
+    return 'index.html'
+  }
   return path.join(...parts)
 }
 
@@ -19,7 +22,7 @@ new Backend(
       new NotFoundEndpoint(new RegExp(/\/not-found/))
     ),
     new ServingFilesEndpoint(
-      new RegExp(/^\/nn-math-web\/(html|js|json|image|css|md)/),
+      new RegExp(/^\/nn-math-web\/?(html|js|json|image|css|md)?/),
       mapperForStatic,
       {},
       new NotFoundEndpoint(new RegExp(/\/not-found/))
