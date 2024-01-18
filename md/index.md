@@ -14,7 +14,7 @@ $$w$$ - vector of weights with length $${n}$$
 $$b$$ - scalar bias
 $$\sigma$$ - activation function, we will use $$ReLU(x) = max(0, x)$$
 
-## 2. Neuron in Terms of Layers in a Neuron Network
+## 2. Neuron in Terms of Layers in a Neural Network
 
 ```latex
 \displaystyle{
