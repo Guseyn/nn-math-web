@@ -1,6 +1,6 @@
 # About
 
-<img src="https://raw.githubusercontent.com/Guseyn/logos/main/image/nn-math-web.svg?sanitize=true">
+<img src="https://raw.githubusercontent.com/Guseyn/logos/main/image/nn-math-logo.svg?sanitize=true">
 
 This project was created out of dissatisfaction with existing online materials on the mathematics of neural networks. This is not an introduction to the idea of neural networks, nor is it an introduction to linear algebra or other fields in math.
 
