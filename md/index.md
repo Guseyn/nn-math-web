@@ -33,13 +33,13 @@ or
 $$n$$ - vector with number of neurons in each layer.
 $$n^l$$ - number of neurons in layer with index $$l$$.
 $$n^{l-1}$$ - number of neurons in layer with index $$l-1$$ (previous layer).
-$$a_j^l$$ - result of a neuron in current layer $$l$$ with index $$j$$ where $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
+$$a_j^l$$ - result of a neuron in the current layer $$l$$ with index $$j$$ where $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
 $$a^l$$ - result as vector that combines all $$a_j^l$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer $$l$$.
-$$a^{l - 1}$$ - result as a vector of nerons in previous layer, which is used as input for current layer with elements $$a_k^{l-1}$$, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
+$$a^{l - 1}$$ - result as a vector of activations in the previous layer, which is used as input for the current layer with elements $$a_k^{l-1}$$, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
 $$a_k^{l-1}$$ - result of neuron with index k in the previous layer $$l-1$$, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
 $$x^1=a^0$$ - very first input for neural network can be considered as activation output with index $$0$$.
-$$w_{jk}^l$$ - weight, leading in current layer $$l$$ for a neuron with index $$j$$ and comming from a neuron with index $$k$$ in the previous layer $$l-1$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer and $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
-$$b^l$$ - bias, which is used for current layer. It also can be different for each neuron like $$b_j^l$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
+$$w_{jk}^l$$ - weight, leading in the current layer $$l$$ for a neuron with index $$j$$ and comming from a neuron with index $$k$$ in the previous layer $$l-1$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer and $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
+$$b^l$$ - bias, which is used for the current layer. It also can be different for each neuron like $$b_j^l$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
 $$\sigma$$ - activation function, we will use $$ReLU(x) = max(0, x)$$
 
 Let's define $$z^l_j$$ as
@@ -64,7 +64,7 @@ Let's define $$z^l_j$$ as
 }
 ```
 
-$$a^l$$ can be used as input vector for next layer $$l+1$$. Let's expand further vector notation:
+$$a^l$$ can be used as input vector for the next layer $$l+1$$. Let's expand further vector notation:
 
 ```latex
 \displaystyle{
@@ -72,9 +72,9 @@ $$a^l$$ can be used as input vector for next layer $$l+1$$. Let's expand further
 }
 ```
 
-$$a^l$$ - result vector of current layer
-$$a^{l-1}$$ - result vector of previous layer or input for current layer, $$a^0=x^1$$ - input for the whole network
-$$W^l$$ - matrix of weights between previous layer and current layer, which contains elements $$w_{jk}^l$$, where $$l$$ - index of current layer, $$j$$ - index of the neuron in current layer $$l$$ where the weight is leading to, and $$k$$ - index of the neuron in previous layer $$l - 1$$ where the weight is coming from. $$1 \leq j \leq n^l$$; $$n^l$$ - number of neurons in current layer, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in previous layer $$l-1$$
+$$a^l$$ - result vector of the current layer
+$$a^{l-1}$$ - result vector of the previous layer or input for the current layer, $$a^0=x^1$$ - input for the whole network
+$$W^l$$ - matrix of weights between previous layer and current layer, which contains elements $$w_{jk}^l$$, where $$l$$ - index of the current layer, $$j$$ - index of the neuron in the current layer $$l$$ where the weight is leading to, and $$k$$ - index of the neuron in the previous layer $$l - 1$$ where the weight is coming from. $$1 \leq j \leq n^l$$; $$n^l$$ - number of neurons in the current layer, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer $$l-1$$
 
 ```latex
 \displaystyle{
@@ -87,7 +87,7 @@ $$W^l$$ - matrix of weights between previous layer and current layer, which cont
 	\end{bmatrix}
 }
 ```
-$$b^l$$ - vector of biases used for current layer $$l$$, $$1 \leq l \leq L$$; $$L$$ - index of the last layer in neural network
+$$b^l$$ - vector of biases used for the current layer $$l$$, $$1 \leq l \leq L$$; $$L$$ - index of the last layer in neural network
 
 ## 4. Expanding Last layer
 
@@ -188,7 +188,7 @@ We can rewrite Gradient Descent for our case:
 }
 ```
 
-Basically, once we found $$\alpha C'(W_i\|b_i)$$, then we can compute $$P_{i+1}$$ or next $$W_{i+1}\|b_{i+1}$$ for next iteration. Then we use those new $$W_{i+1}\|b_{i+1}$$ vectors for all examples $$1 \leq e \leq E$$, then we find new cost function $$C(W_{i+1}\|b_{i+1})$$, if it's not small enough, then we reapeat process of finding new $$P_{i+1}$$. So, basically it goes like this:
+Basically, once we found $$\alpha C'(W_i\|b_i)$$, then we can compute $$P_{i+1}$$ or next $$W_{i+1}\|b_{i+1}$$ for the next iteration. Then we use those new $$W_{i+1}\|b_{i+1}$$ vectors for all examples $$1 \leq e \leq E$$, then we find new cost function $$C(W_{i+1}\|b_{i+1})$$, if it's not small enough, then we reapeat process of finding new $$P_{i+1}$$. So, basically it goes like this:
 
 1. Go through all examples $$e$$, $$1 \leq e \leq E$$ and find all $$a^L_e$$ for each example
 2. Find cost function $$C(W_i, b_i)$$ for iteration with index $$i$$, $$i=0$$ for first iteration
