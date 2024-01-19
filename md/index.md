@@ -752,13 +752,13 @@ Following the same pattern as for the weights, we can calculate derivatives of c
 ```latex
 \displaystyle{
 	\frac{dC}{db^{L-2}} =
-	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}}
 }
 ```
 ```latex
 \displaystyle{
 	\frac{dC}{db^{l}} =
-	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}} \cdots W^{l+1}
+	\frac{1}{2E}\sum_{e=1}^{E}\frac{d\delta_e}{da_e^L}\frac{da_e^L}{dz_e^L}W^L\frac{da_e^{L-1}}{dz_e^{L-1}}W^{L-1}\frac{da_e^{L-2}}{dz_e^{L-2}} \cdots W^{l+1}\frac{da_e^{l}}{dz_e^{l}}
 }
 ```
 ```latex
