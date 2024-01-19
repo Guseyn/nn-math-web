@@ -34,7 +34,7 @@ $$n$$ - vector with number of neurons in each layer.
 $$n^l$$ - number of neurons in layer with index $$l$$.
 $$n^{l-1}$$ - number of neurons in layer with index $$l-1$$ (previous layer).
 $$a_j^l$$ - result of a neuron in current layer $$l$$ with index $$j$$ where $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer.
-$$a^l$$ - result as vector that conbines all $$a_j^l$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer $$l$$.
+$$a^l$$ - result as vector that combines all $$a_j^l$$, $$1 \leq j \leq n^l$$, $$n^l$$ - number of neurons in the current layer $$l$$.
 $$a^{l - 1}$$ - result as a vector of nerons in previous layer, which is used as input for current layer with elements $$a_k^{l-1}$$, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
 $$a_k^{l-1}$$ - result of neuron with index k in the previous layer $$l-1$$, $$1 \leq k \leq n^{l-1}$$, $$n^{l-1}$$ - number of neurons in the previous layer.
 $$x^1=a^0$$ - very first input for neural network can be considered as activation output with index $$0$$.
