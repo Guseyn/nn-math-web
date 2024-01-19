@@ -807,7 +807,7 @@ And using previously calculated derivatives, we update biases for each layer til
 ## 11. How to Train Neural Network
 
 1. Setup neural network according [section#7](#7-what-goes-on-initial-input-in-neural-network).
-2. Find all activations for each layer in the network.
+2. Find all activations for each layer in the network for each learning example.
 3. Find the value of cost function across all the learning examples.
 4. If the value of the cost function is close to 0, then your network is trained, and you can use any other custom input to get the output. If the value of the cost function is not small enough, then go to next step 5.
 5. Find all the derivatives of the cost function with regard to any weight and bias.
