@@ -1,6 +1,6 @@
 # How to Support the Project
 
-- If you find any errors or inaccuracies, please submit an issue.
+- If you find any errors or inaccuracies, please [submit an issue](https://github.com/Guseyn/nn-math-web/issues).
 - Give this project a star on [Github](https://github.com/Guseyn/nn-math-web).
 - Share with friends.
 - Contact me if you have any constructive feedback.
