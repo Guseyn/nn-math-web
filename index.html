@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/image/favicon.ico"/>
-    <link rel="preload" href="/html/main-page-template.html" as="fetch" crossorigin="anonymous" />
-    <link rel="preload" href="/md/index.md" as="fetch" crossorigin="anonymous" />
+    <link rel="preload" href="/nn-math-web/html/main-page-template.html" as="fetch" crossorigin="anonymous" />
+    <link rel="preload" href="/nn-math-web/md/index.md" as="fetch" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/highlights.css">
+    <link rel="stylesheet" href="/nn-math-web/css/normalize.css">
+    <link rel="stylesheet" href="/nn-math-web/css/main.css">
+    <link rel="stylesheet" href="/nn-math-web/css/highlights.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i|Source+Sans+Pro:400,400i,700,700i" type="text/css">
     <script>
       window.WebFontConfig = {
@@ -28,95 +28,95 @@
     <script type="importmap">
     {
       "imports": {
-        "ehtml/E/e-for-each-template": "/js/ehtml/E/e-for-each-template.js",
-        "ehtml/E/e-form-dynamic-value": "/js/ehtml/E/e-form-dynamic-value.js",
-        "ehtml/E/e-form": "/js/ehtml/E/e-form.js",
-        "ehtml/E/e-github-oauth-button": "/js/ehtml/E/e-github-oauth-button.js",
-        "ehtml/E/e-html": "/js/ehtml/E/e-html.js",
-        "ehtml/E/e-if-template": "/js/ehtml/E/e-if-template.js",
-        "ehtml/E/e-json-template": "/js/ehtml/E/e-json-template.js",
-        "ehtml/E/e-json-view": "/js/ehtml/E/e-json-view.js",
-        "ehtml/E/e-json": "/js/ehtml/E/e-json.js",
-        "ehtml/E/e-local-storage-value": "/js/ehtml/E/e-local-storage-value.js",
-        "ehtml/E/e-markdown": "/js/ehtml/E/e-markdown.js",
-        "ehtml/E/e-page-with-url-template": "/js/ehtml/E/e-page-with-url-template.js",
-        "ehtml/E/e-reusable-template": "/js/ehtml/E/e-reusable-template.js",
-        "ehtml/E/e-select": "/js/ehtml/E/e-select.js",
-        "ehtml/E/e-session-storage-value": "/js/ehtml/E/e-session-storage-value.js",
-        "ehtml/E/e-session-value": "/js/ehtml/E/e-session-value.js",
-        "ehtml/E/e-svg": "/js/ehtml/E/e-svg.js",
-        "ehtml/E/e-wrapper-template": "/js/ehtml/E/e-wrapper-template.js",
-        "ehtml/E/e-ws-template": "/js/ehtml/E/e-ws-template.js",
-        "ehtml/E/exports": "/js/ehtml/E/exports.js",
-        "ehtml/actions/addHTMLInto": "/js/ehtml/actions/addHTMLInto.js",
-        "ehtml/actions/addTextInto": "/js/ehtml/actions/addTextInto.js",
-        "ehtml/actions/changeValueOf": "/js/ehtml/actions/changeValueOf.js",
-        "ehtml/actions/disableElms": "/js/ehtml/actions/disableElms.js",
-        "ehtml/actions/enableElms": "/js/ehtml/actions/enableElms.js",
-        "ehtml/actions/hideElms": "/js/ehtml/actions/hideElms.js",
-        "ehtml/actions/insertHTMLInto": "/js/ehtml/actions/insertHTMLInto.js",
-        "ehtml/actions/insertTextInto": "/js/ehtml/actions/insertTextInto.js",
-        "ehtml/actions/loadAndAddHTMLInto": "/js/ehtml/actions/loadAndAddHTMLInto.js",
-        "ehtml/actions/loadAndAddTextInto": "/js/ehtml/actions/loadAndAddTextInto.js",
-        "ehtml/actions/loadHTMLInto": "/js/ehtml/actions/loadHTMLInto.js",
-        "ehtml/actions/loadTextInto": "/js/ehtml/actions/loadTextInto.js",
-        "ehtml/actions/mapToTemplate": "/js/ehtml/actions/mapToTemplate.js",
-        "ehtml/actions/redirect": "/js/ehtml/actions/redirect.js",
-        "ehtml/actions/releaseTemplate": "/js/ehtml/actions/releaseTemplate.js",
-        "ehtml/actions/reload": "/js/ehtml/actions/reload.js",
-        "ehtml/actions/removeElms": "/js/ehtml/actions/removeElms.js",
-        "ehtml/actions/scrollIntoViewOf": "/js/ehtml/actions/scrollIntoViewOf.js",
-        "ehtml/actions/scrollToHash": "/js/ehtml/actions/scrollToHash.js",
-        "ehtml/actions/showElms": "/js/ehtml/actions/showElms.js",
-        "ehtml/actions/toggleElms": "/js/ehtml/actions/toggleElms.js",
-        "ehtml/actions/updateAttributeOf": "/js/ehtml/actions/updateAttributeOf.js",
-        "ehtml/actions/exports": "/js/ehtml/actions/exports.js",
-        "ehtml/third-party/katex/auto-render": "/js/ehtml/third-party/katex/auto-render.js",
-        "ehtml/third-party/katex/katex": "/js/ehtml/third-party/katex/katex.min.js",
-        "ehtml/third-party/showdown-katex/showdown-katex": "/js/ehtml/third-party/showdown-katex/showdown-katex.js",
-        "ehtml/third-party/showdown-katex/asciimath-to-tex": "/js/ehtml/third-party/showdown-katex/asciimath-to-tex.min.js",
-        "ehtml/third-party/he": "/js/ehtml/third-party/he.js",
-        "ehtml/third-party/highlight": "/js/ehtml/third-party/highlight.min.js",
-        "ehtml/third-party/json-pretty-html": "/js/ehtml/third-party/json-pretty-html.js",
-        "ehtml/third-party/showdown-highlight": "/js/ehtml/third-party/showdown-highlight.js",
-        "ehtml/third-party/showdown": "/js/ehtml/third-party/showdown.min.js",
-        "ehtml/elm": "/js/ehtml/elm.js",
-        "ehtml/elms": "/js/ehtml/elms.js",
-        "ehtml/evaluateStringWithActionsOnCloseConnection": "/js/ehtml/evaluateStringWithActionsOnCloseConnection.js",
-        "ehtml/evaluateStringWithActionsOnOpenConnection": "/js/ehtml/evaluateStringWithActionsOnOpenConnection.js",
-        "ehtml/evaluateStringWithActionsOnProgress": "/js/ehtml/evaluateStringWithActionsOnProgress.js",
-        "ehtml/evaluateStringWithActionsOnResponse": "/js/ehtml/evaluateStringWithActionsOnResponse.js",
-        "ehtml/evaluatedStringWithParams": "/js/ehtml/evaluatedStringWithParams.js",
-        "ehtml/evaluatedStringWithParamsFromState": "/js/ehtml/evaluatedStringWithParamsFromState.js",
-        "ehtml/isTemplate": "/js/ehtml/isTemplate.js",
-        "ehtml/isTemplateWithType": "/js/ehtml/isTemplateWithType.js",
-        "ehtml/isTemplateWithTypeExclusively": "/js/ehtml/isTemplateWithTypeExclusively.js",
-        "ehtml/nodeIsNotForEHTML": "/js/ehtml/nodeIsNotForEHTML.js",
-        "ehtml/nodeName": "/js/ehtml/nodeName.js",
-        "ehtml/observeNodeAttributes": "/js/ehtml/observeNodeAttributes.js",
-        "ehtml/observeNodeWithItsChildNodes": "/js/ehtml/observeNodeWithItsChildNodes.js",
-        "ehtml/registerShowdownExtension": "/js/ehtml/registerShowdownExtension.js",
-        "ehtml/releaseTemplateWithItsContent": "/js/ehtml/releaseTemplateWithItsContent.js",
-        "ehtml/responseFromAjaxRequest": "/js/ehtml/responseFromAjaxRequest.js",
-        "ehtml/turnEhtmlMutationObserverOff": "/js/ehtml/turnEhtmlMutationObserverOff.js",
-        "ehtml/turnEhtmlMutationObserverOn": "/js/ehtml/turnEhtmlMutationObserverOn.js",
-        "ehtml/unwrappedChildrenOfParent": "/js/ehtml/unwrappedChildrenOfParent.js",
-        "ehtml/main": "/js/ehtml/main.js"
+        "ehtml/E/e-for-each-template": "/nn-math-web/js/ehtml/E/e-for-each-template.js",
+        "ehtml/E/e-form-dynamic-value": "/nn-math-web/js/ehtml/E/e-form-dynamic-value.js",
+        "ehtml/E/e-form": "/nn-math-web/js/ehtml/E/e-form.js",
+        "ehtml/E/e-github-oauth-button": "/nn-math-web/js/ehtml/E/e-github-oauth-button.js",
+        "ehtml/E/e-html": "/nn-math-web/js/ehtml/E/e-html.js",
+        "ehtml/E/e-if-template": "/nn-math-web/js/ehtml/E/e-if-template.js",
+        "ehtml/E/e-json-template": "/nn-math-web/js/ehtml/E/e-json-template.js",
+        "ehtml/E/e-json-view": "/nn-math-web/js/ehtml/E/e-json-view.js",
+        "ehtml/E/e-json": "/nn-math-web/js/ehtml/E/e-json.js",
+        "ehtml/E/e-local-storage-value": "/nn-math-web/js/ehtml/E/e-local-storage-value.js",
+        "ehtml/E/e-markdown": "/nn-math-web/js/ehtml/E/e-markdown.js",
+        "ehtml/E/e-page-with-url-template": "/nn-math-web/js/ehtml/E/e-page-with-url-template.js",
+        "ehtml/E/e-reusable-template": "/nn-math-web/js/ehtml/E/e-reusable-template.js",
+        "ehtml/E/e-select": "/nn-math-web/js/ehtml/E/e-select.js",
+        "ehtml/E/e-session-storage-value": "/nn-math-web/js/ehtml/E/e-session-storage-value.js",
+        "ehtml/E/e-session-value": "/nn-math-web/js/ehtml/E/e-session-value.js",
+        "ehtml/E/e-svg": "/nn-math-web/js/ehtml/E/e-svg.js",
+        "ehtml/E/e-wrapper-template": "/nn-math-web/js/ehtml/E/e-wrapper-template.js",
+        "ehtml/E/e-ws-template": "/nn-math-web/js/ehtml/E/e-ws-template.js",
+        "ehtml/E/exports": "/nn-math-web/js/ehtml/E/exports.js",
+        "ehtml/actions/addHTMLInto": "/nn-math-web/js/ehtml/actions/addHTMLInto.js",
+        "ehtml/actions/addTextInto": "/nn-math-web/js/ehtml/actions/addTextInto.js",
+        "ehtml/actions/changeValueOf": "/nn-math-web/js/ehtml/actions/changeValueOf.js",
+        "ehtml/actions/disableElms": "/nn-math-web/js/ehtml/actions/disableElms.js",
+        "ehtml/actions/enableElms": "/nn-math-web/js/ehtml/actions/enableElms.js",
+        "ehtml/actions/hideElms": "/nn-math-web/js/ehtml/actions/hideElms.js",
+        "ehtml/actions/insertHTMLInto": "/nn-math-web/js/ehtml/actions/insertHTMLInto.js",
+        "ehtml/actions/insertTextInto": "/nn-math-web/js/ehtml/actions/insertTextInto.js",
+        "ehtml/actions/loadAndAddHTMLInto": "/nn-math-web/js/ehtml/actions/loadAndAddHTMLInto.js",
+        "ehtml/actions/loadAndAddTextInto": "/nn-math-web/js/ehtml/actions/loadAndAddTextInto.js",
+        "ehtml/actions/loadHTMLInto": "/nn-math-web/js/ehtml/actions/loadHTMLInto.js",
+        "ehtml/actions/loadTextInto": "/nn-math-web/js/ehtml/actions/loadTextInto.js",
+        "ehtml/actions/mapToTemplate": "/nn-math-web/js/ehtml/actions/mapToTemplate.js",
+        "ehtml/actions/redirect": "/nn-math-web/js/ehtml/actions/redirect.js",
+        "ehtml/actions/releaseTemplate": "/nn-math-web/js/ehtml/actions/releaseTemplate.js",
+        "ehtml/actions/reload": "/nn-math-web/js/ehtml/actions/reload.js",
+        "ehtml/actions/removeElms": "/nn-math-web/js/ehtml/actions/removeElms.js",
+        "ehtml/actions/scrollIntoViewOf": "/nn-math-web/js/ehtml/actions/scrollIntoViewOf.js",
+        "ehtml/actions/scrollToHash": "/nn-math-web/js/ehtml/actions/scrollToHash.js",
+        "ehtml/actions/showElms": "/nn-math-web/js/ehtml/actions/showElms.js",
+        "ehtml/actions/toggleElms": "/nn-math-web/js/ehtml/actions/toggleElms.js",
+        "ehtml/actions/updateAttributeOf": "/nn-math-web/js/ehtml/actions/updateAttributeOf.js",
+        "ehtml/actions/exports": "/nn-math-web/js/ehtml/actions/exports.js",
+        "ehtml/third-party/katex/auto-render": "/nn-math-web/js/ehtml/third-party/katex/auto-render.js",
+        "ehtml/third-party/katex/katex": "/nn-math-web/js/ehtml/third-party/katex/katex.min.js",
+        "ehtml/third-party/showdown-katex/showdown-katex": "/nn-math-web/js/ehtml/third-party/showdown-katex/showdown-katex.js",
+        "ehtml/third-party/showdown-katex/asciimath-to-tex": "/nn-math-web/js/ehtml/third-party/showdown-katex/asciimath-to-tex.min.js",
+        "ehtml/third-party/he": "/nn-math-web/js/ehtml/third-party/he.js",
+        "ehtml/third-party/highlight": "/nn-math-web/js/ehtml/third-party/highlight.min.js",
+        "ehtml/third-party/json-pretty-html": "/nn-math-web/js/ehtml/third-party/json-pretty-html.js",
+        "ehtml/third-party/showdown-highlight": "/nn-math-web/js/ehtml/third-party/showdown-highlight.js",
+        "ehtml/third-party/showdown": "/nn-math-web/js/ehtml/third-party/showdown.min.js",
+        "ehtml/elm": "/nn-math-web/js/ehtml/elm.js",
+        "ehtml/elms": "/nn-math-web/js/ehtml/elms.js",
+        "ehtml/evaluateStringWithActionsOnCloseConnection": "/nn-math-web/js/ehtml/evaluateStringWithActionsOnCloseConnection.js",
+        "ehtml/evaluateStringWithActionsOnOpenConnection": "/nn-math-web/js/ehtml/evaluateStringWithActionsOnOpenConnection.js",
+        "ehtml/evaluateStringWithActionsOnProgress": "/nn-math-web/js/ehtml/evaluateStringWithActionsOnProgress.js",
+        "ehtml/evaluateStringWithActionsOnResponse": "/nn-math-web/js/ehtml/evaluateStringWithActionsOnResponse.js",
+        "ehtml/evaluatedStringWithParams": "/nn-math-web/js/ehtml/evaluatedStringWithParams.js",
+        "ehtml/evaluatedStringWithParamsFromState": "/nn-math-web/js/ehtml/evaluatedStringWithParamsFromState.js",
+        "ehtml/isTemplate": "/nn-math-web/js/ehtml/isTemplate.js",
+        "ehtml/isTemplateWithType": "/nn-math-web/js/ehtml/isTemplateWithType.js",
+        "ehtml/isTemplateWithTypeExclusively": "/nn-math-web/js/ehtml/isTemplateWithTypeExclusively.js",
+        "ehtml/nodeIsNotForEHTML": "/nn-math-web/js/ehtml/nodeIsNotForEHTML.js",
+        "ehtml/nodeName": "/nn-math-web/js/ehtml/nodeName.js",
+        "ehtml/observeNodeAttributes": "/nn-math-web/js/ehtml/observeNodeAttributes.js",
+        "ehtml/observeNodeWithItsChildNodes": "/nn-math-web/js/ehtml/observeNodeWithItsChildNodes.js",
+        "ehtml/registerShowdownExtension": "/nn-math-web/js/ehtml/registerShowdownExtension.js",
+        "ehtml/releaseTemplateWithItsContent": "/nn-math-web/js/ehtml/releaseTemplateWithItsContent.js",
+        "ehtml/responseFromAjaxRequest": "/nn-math-web/js/ehtml/responseFromAjaxRequest.js",
+        "ehtml/turnEhtmlMutationObserverOff": "/nn-math-web/js/ehtml/turnEhtmlMutationObserverOff.js",
+        "ehtml/turnEhtmlMutationObserverOn": "/nn-math-web/js/ehtml/turnEhtmlMutationObserverOn.js",
+        "ehtml/unwrappedChildrenOfParent": "/nn-math-web/js/ehtml/unwrappedChildrenOfParent.js",
+        "ehtml/main": "/nn-math-web/js/ehtml/main.js"
       }
     }
     </script>
     <script type="module">import "ehtml/main"</script>
-    <!-- <script type="text/javascript" src="/js/ehtml.bundle.min.js"></script> -->
-    <script type="text/javascript" src="/js/utils.js"></script>
+    <!-- <script type="text/javascript" src="/nn-math-web/js/ehtml.bundle.min.js"></script> -->
+    <script type="text/javascript" src="/nn-math-web/js/utils.js"></script>
   </head>
   <body class="main">
     <template
       is="e-wrapper"
-      data-src="/html/main-page-template.html"
+      data-src="/nn-math-web/html/main-page-template.html"
       data-where-to-place="#author"
       data-how-to-place="before">
       <e-markdown
-        data-src="/md/index.md"
+        data-src="/nn-math-web/md/index.md"
         data-apply-code-highlighting="true"
         data-apply-latex="true"
         data-actions-on-progress-start="
